@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://teddyflo95-boop.github.io/lootgoblin-website/sitemap.xml
+
