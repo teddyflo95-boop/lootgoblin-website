@@ -6,6 +6,16 @@
     <title>LootGoblin - Free Games & Deals Bot</title>
     <meta name="description" content="Never miss a free game again! LootGoblin tracks free games from Steam, Epic, GOG, PlayStation, Xbox & more.">
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.epvpimg.com/RAFObab.jpg">
+    <link rel="apple-touch-icon" href="https://i.epvpimg.com/RAFObab.jpg">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="LootGoblin - Free Games & Deals Bot">
+    <meta property="og:description" content="Never miss a free game again! Track free games from Steam, Epic, GOG, PlayStation, Xbox & more.">
+    <meta property="og:image" content="https://i.epvpimg.com/VTIeaab.jpg">
+    <meta property="og:type" content="website">
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -76,9 +86,7 @@
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-green-400 to-cyan-400 rounded-full flex items-center justify-center text-2xl">
-                        🎮
-                    </div>
+                    <img src="https://i.epvpimg.com/RAFObab.jpg" alt="LootGoblin" class="w-10 h-10 rounded-full glow">
                     <span class="text-xl font-bold gradient-text">LootGoblin</span>
                 </div>
                 <div class="hidden md:flex items-center space-x-6">
@@ -98,14 +106,17 @@
     <section class="relative min-h-screen flex items-center justify-center pt-20 px-6">
         <div class="container mx-auto text-center z-10">
             <div class="animate-float mb-8">
-                <div class="w-32 h-32 mx-auto bg-gradient-to-br from-green-400 to-cyan-400 rounded-full flex items-center justify-center text-6xl mb-6 glow">
-                    🎮
-                </div>
+                <img src="https://i.epvpimg.com/RAFObab.jpg" alt="LootGoblin" class="w-32 h-32 mx-auto rounded-full mb-6 glow border-4 border-green-400/50">
             </div>
             
             <h1 class="text-6xl md:text-8xl font-black mb-6">
                 <span class="gradient-text">LootGoblin</span>
             </h1>
+            
+            <!-- Banner Image -->
+            <div class="mb-12 max-w-4xl mx-auto">
+                <img src="https://i.epvpimg.com/VTIeaab.jpg" alt="LootGoblin Banner" class="w-full rounded-2xl shadow-2xl border-2 border-green-400/30">
+            </div>
             
             <p class="text-2xl md:text-3xl text-gray-300 mb-4">
                 Never miss a <span class="gradient-text font-bold">free game</span> again!
@@ -202,12 +213,18 @@
     <!-- Premium Section -->
     <section id="premium" class="py-20 px-6 relative z-10">
         <div class="container mx-auto">
-            <div class="glass rounded-3xl p-12 max-w-4xl mx-auto">
-                <div class="text-center mb-12">
-                    <div class="text-6xl mb-4">💎</div>
-                    <h2 class="text-5xl font-black mb-4">
-                        <span class="gradient-text">LootGoblin Premium</span>
-                    </h2>
+            <div class="glass rounded-3xl p-12 max-w-4xl mx-auto relative overflow-hidden">
+                <!-- Background Banner -->
+                <div class="absolute inset-0 opacity-10">
+                    <img src="https://i.epvpimg.com/VTIeaab.jpg" alt="Banner" class="w-full h-full object-cover">
+                </div>
+                
+                <div class="relative z-10">
+                    <div class="text-center mb-12">
+                        <div class="text-6xl mb-4">💎</div>
+                        <h2 class="text-5xl font-black mb-4">
+                            <span class="gradient-text">LootGoblin Premium</span>
+                        </h2>
                     <p class="text-3xl font-bold mb-2">€1.99/month</p>
                     <p class="text-gray-400">Unlock powerful features for your server</p>
                 </div>
@@ -250,6 +267,7 @@
                         💎 Get Premium Now
                     </a>
                 </div>
+                </div>
             </div>
         </div>
     </section>
@@ -258,9 +276,7 @@
     <footer class="py-12 px-6 border-t border-gray-800 relative z-10">
         <div class="container mx-auto text-center">
             <div class="flex items-center justify-center space-x-3 mb-4">
-                <div class="w-10 h-10 bg-gradient-to-br from-green-400 to-cyan-400 rounded-full flex items-center justify-center text-2xl">
-                    🎮
-                </div>
+                <img src="https://i.epvpimg.com/RAFObab.jpg" alt="LootGoblin" class="w-10 h-10 rounded-full">
                 <span class="text-xl font-bold gradient-text">LootGoblin</span>
             </div>
             <p class="text-gray-400 mb-6">Never miss a free game again!</p>
