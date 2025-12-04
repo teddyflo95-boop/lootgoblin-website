@@ -670,18 +670,16 @@
                 }
             }
             
-            // Update all "Add to Discord" buttons
+            // Update all "Add to Discord" buttons - erfasst alle Buttons mit oauth2-Link
             document.querySelectorAll('a[href*="oauth2"]').forEach(btn => {
-                if (btn.textContent.includes('Add to Discord') || btn.textContent.includes('Bot')) {
-                    btn.textContent = t.addBot;
-                }
+                // Übersetze alle Buttons mit oauth2-Link, unabhängig vom aktuellen Text
+                btn.textContent = t.addBot;
             });
             
-            // Update all "Get Premium" buttons
+            // Update all "Get Premium" buttons - erfasst alle Buttons mit stripe-Link
             document.querySelectorAll('a[href*="stripe"]').forEach(btn => {
-                if (btn.textContent.includes('Get Premium') || btn.textContent.includes('Premium')) {
-                    btn.textContent = t.getPremium;
-                }
+                // Übersetze alle Buttons mit stripe-Link, unabhängig vom aktuellen Text
+                btn.textContent = t.getPremium;
             });
             
             // Navigation bleibt auf Englisch - nicht übersetzen

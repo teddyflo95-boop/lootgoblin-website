@@ -174,21 +174,45 @@
             const titleElement = document.querySelector('h1 span.gradient-text');
             if (titleElement) titleElement.textContent = t.title;
             
-            // Update back links
+            // Update back links - erfasst alle Links mit href="/"
             document.querySelectorAll('a[href="/"]').forEach(link => {
-                if (link.textContent.includes('Back to Home') || link.textContent.includes('Zurück')) {
+                // Übersetze alle "Back to Home" Links, unabhängig vom aktuellen Text
+                if (link.textContent.includes('Back to Home') || link.textContent.includes('Zurück') || 
+                    link.textContent.includes('Volver') || link.textContent.includes('Retour') || 
+                    link.textContent.includes('Powrót') || link.textContent.includes('Voltar') || 
+                    link.textContent.includes('Назад')) {
                     link.textContent = t.backToHome;
                 }
             });
             
-            // Update section headers (Added, Fixed, Changed)
+            // Update section headers (Added, Fixed, Changed) - erfasst alle h3 mit diesen Emojis
             document.querySelectorAll('h3').forEach(h3 => {
-                if (h3.textContent.includes('Added') || h3.textContent.includes('Hinzugefügt')) {
+                const text = h3.textContent.trim();
+                // Prüfe nach Emoji + Text-Kombinationen
+                if (text.startsWith('✨') || text.includes('Added') || text.includes('Hinzugefügt') || 
+                    text.includes('Añadido') || text.includes('Ajouté') || text.includes('Dodano') || 
+                    text.includes('Adicionado') || text.includes('Добавлено')) {
                     h3.textContent = t.added;
-                } else if (h3.textContent.includes('Fixed') || h3.textContent.includes('Behoben')) {
+                } else if (text.startsWith('🐛') || text.includes('Fixed') || text.includes('Behoben') || 
+                           text.includes('Corregido') || text.includes('Corrigé') || text.includes('Naprawiono') || 
+                           text.includes('Corrigido') || text.includes('Исправлено')) {
                     h3.textContent = t.fixed;
-                } else if (h3.textContent.includes('Changed') || h3.textContent.includes('Geändert')) {
+                } else if (text.startsWith('🔧') || text.includes('Changed') || text.includes('Geändert') || 
+                           text.includes('Cambiado') || text.includes('Modifié') || text.includes('Zmieniono') || 
+                           text.includes('Alterado') || text.includes('Изменено')) {
                     h3.textContent = t.changed;
+                }
+            });
+            
+            // Update "Version" in h2 headings
+            document.querySelectorAll('h2.gradient-text').forEach(h2 => {
+                if (h2.textContent.includes('Version') || h2.textContent.includes('Versión') || 
+                    h2.textContent.includes('Wersja') || h2.textContent.includes('Versão') || 
+                    h2.textContent.includes('Версия')) {
+                    const versionNum = h2.textContent.match(/\d+\.\d+\.\d+/);
+                    if (versionNum) {
+                        h2.textContent = `${t.version} ${versionNum[0]}`;
+                    }
                 }
             });
         }

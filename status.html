@@ -114,7 +114,11 @@
                 premiumServers: "Premium Server",
                 dealsPosted: "Gepostete Deals",
                 apiStatus: "API Status",
-                operational: "✅ Betriebsbereit"
+                operational: "✅ Betriebsbereit",
+                gamerPower: "GamerPower API",
+                cheapShark: "CheapShark API",
+                steamStore: "Steam Store API",
+                duckDuckGo: "DuckDuckGo Bildersuche"
             },
             en: {
                 title: "📊 Bot Status",
@@ -129,7 +133,11 @@
                 premiumServers: "Premium Servers",
                 dealsPosted: "Deals Posted",
                 apiStatus: "API Status",
-                operational: "✅ Operational"
+                operational: "✅ Operational",
+                gamerPower: "GamerPower API",
+                cheapShark: "CheapShark API",
+                steamStore: "Steam Store API",
+                duckDuckGo: "DuckDuckGo Image Search"
             },
             es: {
                 title: "📊 Estado del Bot",
@@ -144,7 +152,11 @@
                 premiumServers: "Servidores Premium",
                 dealsPosted: "Ofertas Publicadas",
                 apiStatus: "Estado de la API",
-                operational: "✅ Operativo"
+                operational: "✅ Operativo",
+                gamerPower: "GamerPower API",
+                cheapShark: "CheapShark API",
+                steamStore: "Steam Store API",
+                duckDuckGo: "Búsqueda de Imágenes DuckDuckGo"
             },
             fr: {
                 title: "📊 État du Bot",
@@ -159,7 +171,11 @@
                 premiumServers: "Serveurs Premium",
                 dealsPosted: "Offres Publiées",
                 apiStatus: "État de l'API",
-                operational: "✅ Opérationnel"
+                operational: "✅ Opérationnel",
+                gamerPower: "GamerPower API",
+                cheapShark: "CheapShark API",
+                steamStore: "Steam Store API",
+                duckDuckGo: "Recherche d'Images DuckDuckGo"
             },
             pl: {
                 title: "📊 Status Bota",
@@ -174,7 +190,11 @@
                 premiumServers: "Serwery Premium",
                 dealsPosted: "Opublikowane Oferty",
                 apiStatus: "Status API",
-                operational: "✅ Działające"
+                operational: "✅ Działające",
+                gamerPower: "GamerPower API",
+                cheapShark: "CheapShark API",
+                steamStore: "Steam Store API",
+                duckDuckGo: "Wyszukiwanie Obrazów DuckDuckGo"
             },
             "pt-BR": {
                 title: "📊 Status do Bot",
@@ -189,7 +209,11 @@
                 premiumServers: "Servidores Premium",
                 dealsPosted: "Ofertas Publicadas",
                 apiStatus: "Status da API",
-                operational: "✅ Operacional"
+                operational: "✅ Operacional",
+                gamerPower: "GamerPower API",
+                cheapShark: "CheapShark API",
+                steamStore: "Steam Store API",
+                duckDuckGo: "Busca de Imagens DuckDuckGo"
             },
             ru: {
                 title: "📊 Статус Бота",
@@ -204,7 +228,11 @@
                 premiumServers: "Premium Серверы",
                 dealsPosted: "Опубликованные Предложения",
                 apiStatus: "Статус API",
-                operational: "✅ Работает"
+                operational: "✅ Работает",
+                gamerPower: "GamerPower API",
+                cheapShark: "CheapShark API",
+                steamStore: "Steam Store API",
+                duckDuckGo: "Поиск Изображений DuckDuckGo"
             }
         };
         
@@ -223,35 +251,139 @@
             const titleElement = document.querySelector('h1 span.gradient-text');
             if (titleElement) titleElement.textContent = t.title;
             
-            // Update back links
+            // Update back links - erfasst alle Links mit href="/"
             document.querySelectorAll('a[href="/"]').forEach(link => {
-                if (link.textContent.includes('Back to Home') || link.textContent.includes('Zurück')) {
+                // Übersetze alle "Back to Home" Links, unabhängig vom aktuellen Text
+                if (link.textContent.includes('Back to Home') || link.textContent.includes('Zurück') || 
+                    link.textContent.includes('Volver') || link.textContent.includes('Retour') || 
+                    link.textContent.includes('Powrót') || link.textContent.includes('Voltar') || 
+                    link.textContent.includes('Назад')) {
                     link.textContent = t.backToHome;
                 }
             });
             
-            // Update section headings
+            // Update section headings - erfasst alle Überschriften, unabhängig von der aktuellen Sprache
             const headings = document.querySelectorAll('h2.gradient-text');
             headings.forEach(h2 => {
-                if (h2.textContent.includes('Bot Status')) h2.textContent = t.botStatus;
-                else if (h2.textContent.includes('Statistics')) h2.textContent = t.statistics;
-                else if (h2.textContent.includes('API Status')) h2.textContent = t.apiStatus;
+                const text = h2.textContent.trim();
+                if (text.includes('Bot Status') || text.includes('Bot Status') || 
+                    text.includes('Estado del Bot') || text.includes('État du Bot') || 
+                    text.includes('Status Bota') || text.includes('Status do Bot') || 
+                    text.includes('Статус Бота')) {
+                    h2.textContent = t.botStatus;
+                } else if (text.includes('Statistics') || text.includes('Statistiken') || 
+                           text.includes('Estadísticas') || text.includes('Statistiques') || 
+                           text.includes('Statystyki') || text.includes('Estatísticas') || 
+                           text.includes('Статистика')) {
+                    h2.textContent = t.statistics;
+                } else if (text.includes('API Status') || text.includes('API Status') || 
+                           text.includes('Estado de la API') || text.includes('État de l\'API') || 
+                           text.includes('Status API') || text.includes('Status da API') || 
+                           text.includes('Статус API')) {
+                    h2.textContent = t.apiStatus;
+                }
             });
             
-            // Update stat labels
+            // Update stat labels - erfasst alle Labels, unabhängig von der aktuellen Sprache
             const statLabels = document.querySelectorAll('.text-gray-400');
             statLabels.forEach(label => {
-                if (label.textContent.includes('Total Servers')) label.textContent = t.totalServers;
-                else if (label.textContent.includes('Configured Servers')) label.textContent = t.configuredServers;
-                else if (label.textContent.includes('Premium Servers')) label.textContent = t.premiumServers;
-                else if (label.textContent.includes('Deals Posted')) label.textContent = t.dealsPosted;
+                const text = label.textContent.trim();
+                if (text.includes('Total Servers') || text.includes('Server Gesamt') || 
+                    text.includes('Servidores Totales') || text.includes('Serveurs Totaux') || 
+                    text.includes('Wszystkie Serwery') || text.includes('Servidores Totais') || 
+                    text.includes('Всего Серверов')) {
+                    label.textContent = t.totalServers;
+                } else if (text.includes('Configured Servers') || text.includes('Konfigurierte Server') || 
+                           text.includes('Servidores Configurados') || text.includes('Serveurs Configurés') || 
+                           text.includes('Skonfigurowane Serwery') || text.includes('Servidores Configurados') || 
+                           text.includes('Настроенные Серверы')) {
+                    label.textContent = t.configuredServers;
+                } else if (text.includes('Premium Servers') || text.includes('Premium Server') || 
+                           text.includes('Servidores Premium') || text.includes('Serveurs Premium') || 
+                           text.includes('Serwery Premium') || text.includes('Servidores Premium') || 
+                           text.includes('Premium Серверы')) {
+                    label.textContent = t.premiumServers;
+                } else if (text.includes('Deals Posted') || text.includes('Gepostete Deals') || 
+                           text.includes('Ofertas Publicadas') || text.includes('Offres Publiées') || 
+                           text.includes('Opublikowane Oferty') || text.includes('Ofertas Publicadas') || 
+                           text.includes('Опубликованные Предложения')) {
+                    label.textContent = t.dealsPosted;
+                }
             });
             
-            // Update API status text
+            // Update API status text - erfasst alle API-Status-Texte
             const apiStatusTexts = document.querySelectorAll('.flex.items-center span');
             apiStatusTexts.forEach(span => {
-                if (span.textContent.includes('Operational')) span.textContent = t.operational;
+                const text = span.textContent.trim();
+                if (text.includes('Operational') || text.includes('Betriebsbereit') || 
+                    text.includes('Operativo') || text.includes('Opérationnel') || 
+                    text.includes('Działające') || text.includes('Operacional') || 
+                    text.includes('Работает')) {
+                    span.textContent = t.operational;
+                }
             });
+            
+            // Update API names in the API Status section
+            const apiStatusSection = document.querySelector('#api-status') || document.querySelector('h2:contains("API Status")')?.closest('div');
+            if (apiStatusSection) {
+                const apiStatusRows = apiStatusSection.querySelectorAll('.flex.items-center');
+                apiStatusRows.forEach(row => {
+                    const spans = row.querySelectorAll('span');
+                    if (spans.length >= 1) {
+                        const firstSpan = spans[0];
+                        const text = firstSpan.textContent.trim();
+                        if (text.includes('GamerPower') || text.includes('GamerPower API')) {
+                            firstSpan.textContent = t.gamerPower;
+                        } else if (text.includes('CheapShark') || text.includes('CheapShark API')) {
+                            firstSpan.textContent = t.cheapShark;
+                        } else if (text.includes('Steam Store') || text.includes('Steam Store API')) {
+                            firstSpan.textContent = t.steamStore;
+                        } else if (text.includes('DuckDuckGo') || text.includes('Image Search') || 
+                                   text.includes('Bildersuche') || text.includes('Búsqueda de Imágenes') || 
+                                   text.includes('Recherche d\'Images') || text.includes('Wyszukiwanie Obrazów') || 
+                                   text.includes('Busca de Imagens') || text.includes('Поиск Изображений')) {
+                            firstSpan.textContent = t.duckDuckGo;
+                        }
+                    }
+                });
+            }
+            
+            // Alternative: Direkt alle API-Namen im API Status Bereich finden
+            document.querySelectorAll('.space-y-3 .flex.items-center span').forEach(span => {
+                const text = span.textContent.trim();
+                if (text.includes('GamerPower') && !text.includes('Operational') && !text.includes('✅')) {
+                    span.textContent = t.gamerPower;
+                } else if (text.includes('CheapShark') && !text.includes('Operational') && !text.includes('✅')) {
+                    span.textContent = t.cheapShark;
+                } else if (text.includes('Steam Store') && !text.includes('Operational') && !text.includes('✅')) {
+                    span.textContent = t.steamStore;
+                } else if (text.includes('DuckDuckGo') && !text.includes('Operational') && !text.includes('✅')) {
+                    span.textContent = t.duckDuckGo;
+                }
+            });
+            
+            // Update "Checking..." text im bot-status Element
+            const botStatusElement = document.getElementById('bot-status');
+            if (botStatusElement) {
+                const text = botStatusElement.textContent.trim();
+                if (text.includes('Checking...') || text.includes('Prüfe...') || 
+                    text.includes('Comprobando...') || text.includes('Vérification...') || 
+                    text.includes('Sprawdzanie...') || text.includes('Verificando...') || 
+                    text.includes('Проверка...')) {
+                    botStatusElement.textContent = t.checking;
+                } else if (text.includes('Online') || text.includes('Online') || 
+                           text.includes('En Línea') || text.includes('En Ligne') || 
+                           text.includes('Online') || text.includes('Online') || 
+                           text.includes('Онлайн')) {
+                    // Wird durch fetchStatus() aktualisiert, aber hier für Konsistenz
+                    botStatusElement.textContent = t.online;
+                } else if (text.includes('Offline') || text.includes('Offline') || 
+                           text.includes('Desconectado') || text.includes('Hors Ligne') || 
+                           text.includes('Offline') || text.includes('Offline') || 
+                           text.includes('Офлайн')) {
+                    botStatusElement.textContent = t.offline;
+                }
+            }
         }
         
         function changeLanguage(lang) {

@@ -279,58 +279,145 @@
             const titleElement = document.querySelector('h1 span.gradient-text');
             if (titleElement) titleElement.textContent = t.title;
             
-            // Update back links
+            // Update back links - erfasst alle Links mit href="/"
             document.querySelectorAll('a[href="/"]').forEach(link => {
-                if (link.textContent.includes('Back to Home') || link.textContent.includes('Zurück')) {
+                // Übersetze alle "Back to Home" Links, unabhängig vom aktuellen Text
+                if (link.textContent.includes('Back to Home') || link.textContent.includes('Zurück') || 
+                    link.textContent.includes('Volver') || link.textContent.includes('Retour') || 
+                    link.textContent.includes('Powrót') || link.textContent.includes('Voltar') || 
+                    link.textContent.includes('Назад')) {
                     link.textContent = t.backToHome;
                 }
             });
             
-            // Update table headers
+            // Update table headers - erfasst alle Header, unabhängig von der aktuellen Sprache
             const thElements = document.querySelectorAll('th');
             thElements.forEach(th => {
-                if (th.textContent.includes('Feature')) th.textContent = t.feature;
-                if (th.textContent.includes('Free')) th.textContent = t.free;
-                if (th.textContent.includes('Premium')) th.textContent = t.premium;
-            });
-            
-            // Update table rows
-            const rows = document.querySelectorAll('tbody tr');
-            rows.forEach(row => {
-                const td = row.querySelector('td');
-                if (td) {
-                    const text = td.textContent.trim();
-                    if (text.includes('Auto Deal Posts')) td.textContent = t.autoDealPosts;
-                    else if (text.includes('Platform Filters')) td.textContent = t.platformFilters;
-                    else if (text.includes('Wishlist System')) td.textContent = t.wishlistSystem;
-                    else if (text.includes('Wishlist Limit')) td.textContent = t.wishlistLimit;
-                    else if (text.includes('games')) td.textContent = td.textContent.replace('games', t.games);
-                    else if (text.includes('DM Notifications')) td.textContent = t.dmNotifications;
-                    else if (text.includes('Multi-Language')) td.textContent = t.multiLanguage;
-                    else if (text.includes('Custom Branding')) td.textContent = t.customBranding;
-                    else if (text.includes('Auto-Threads')) td.textContent = t.autoThreads;
-                    else if (text.includes('Deep-Search')) td.textContent = t.deepSearch;
-                    else if (text.includes('Category Filters')) td.textContent = t.categoryFilters;
-                    else if (text.includes('DLC & Loot')) td.textContent = t.dlcLoot;
-                    else if (text.includes('Priority Support')) td.textContent = t.prioritySupport;
+                const text = th.textContent.trim();
+                if (text.includes('Feature') || text.includes('Feature') || 
+                    text.includes('Característica') || text.includes('Fonctionnalité') || 
+                    text.includes('Funkcja') || text.includes('Recurso') || 
+                    text.includes('Функция')) {
+                    th.textContent = t.feature;
+                } else if (text.includes('Free') || text.includes('Free') || 
+                           text.includes('Gratis') || text.includes('Gratuit') || 
+                           text.includes('Darmowe') || text.includes('Grátis') || 
+                           text.includes('Бесплатно')) {
+                    th.textContent = t.free;
+                } else if (text.includes('Premium') || text.includes('Premium') || 
+                           text.includes('Premium') || text.includes('Premium') || 
+                           text.includes('Premium') || text.includes('Premium') || 
+                           text.includes('Premium')) {
+                    th.textContent = t.premium;
                 }
             });
             
-            // Update CTA section
-            const ctaHeading = document.querySelector('h2.gradient-text');
-            if (ctaHeading && ctaHeading.textContent.includes('Ready to Upgrade')) {
-                ctaHeading.textContent = t.readyToUpgrade;
-            }
+            // Update table rows - erfasst alle Feature-Namen, unabhängig von der aktuellen Sprache
+            const rows = document.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                const td = row.querySelector('td');
+                if (td && !td.classList.contains('text-center')) {
+                    const text = td.textContent.trim();
+                    // Prüfe auf alle möglichen Übersetzungen
+                    if (text.includes('Auto Deal Posts') || text.includes('Automatische Deal-Posts') || 
+                        text.includes('Publicaciones Automáticas') || text.includes('Publications Automatiques') || 
+                        text.includes('Automatyczne Posty') || text.includes('Posts Automáticos') || 
+                        text.includes('Автоматические Посты')) {
+                        td.textContent = t.autoDealPosts;
+                    } else if (text.includes('Platform Filters') || text.includes('Plattform-Filter') || 
+                               text.includes('Filtros de Plataforma') || text.includes('Filtres de Plateforme') || 
+                               text.includes('Filtry Platform') || text.includes('Filtros de Plataforma') || 
+                               text.includes('Фильтры Платформ')) {
+                        td.textContent = t.platformFilters;
+                    } else if (text.includes('Wishlist System') || text.includes('Wishlist-System') || 
+                               text.includes('Sistema de Lista de Deseos') || text.includes('Système de Liste de Souhaits') || 
+                               text.includes('System Listy Życzeń') || text.includes('Sistema de Lista de Desejos') || 
+                               text.includes('Система Списка Желаний')) {
+                        td.textContent = t.wishlistSystem;
+                    } else if (text.includes('Wishlist Limit') || text.includes('Wishlist-Limit') || 
+                               text.includes('Límite de Lista de Deseos') || text.includes('Limite de Liste de Souhaits') || 
+                               text.includes('Limit Listy Życzeń') || text.includes('Limite de Lista de Desejos') || 
+                               text.includes('Лимит Списка Желаний')) {
+                        td.textContent = t.wishlistLimit;
+                    } else if (text.includes('games') || text.includes('Spiele') || text.includes('juegos') || 
+                               text.includes('jeux') || text.includes('gier') || text.includes('jogos') || 
+                               text.includes('игр')) {
+                        // Ersetze nur "games" im Text, nicht den gesamten Text
+                        const match = text.match(/(\d+)\s*(games|Spiele|juegos|jeux|gier|jogos|игр)/i);
+                        if (match) {
+                            td.textContent = `${match[1]} ${t.games}`;
+                        }
+                    } else if (text.includes('DM Notifications') || text.includes('DM-Benachrichtigungen') || 
+                               text.includes('Notificaciones DM') || text.includes('Notifications DM') || 
+                               text.includes('Powiadomienia DM') || text.includes('Notificações DM') || 
+                               text.includes('Уведомления в ЛС')) {
+                        td.textContent = t.dmNotifications;
+                    } else if (text.includes('Multi-Language') || text.includes('Multi-Sprachen-Support') || 
+                               text.includes('Soporte Multiidioma') || text.includes('Support Multi-Langues') || 
+                               text.includes('Obsługa Wielojęzyczna') || text.includes('Suporte Multi-Idioma') || 
+                               text.includes('Многоязычная Поддержка')) {
+                        td.textContent = t.multiLanguage;
+                    } else if (text.includes('Custom Branding') || text.includes('Custom Branding (Name & Avatar)') || 
+                               text.includes('Marca Personalizada') || text.includes('Personnalisation') || 
+                               text.includes('Niestandardowe Branding') || text.includes('Marca Personalizada') || 
+                               text.includes('Пользовательский Брендинг')) {
+                        td.textContent = t.customBranding;
+                    } else if (text.includes('Auto-Threads') || text.includes('Auto-Threads') || 
+                               text.includes('Hilos Automáticos') || text.includes('Fils Automatiques') || 
+                               text.includes('Automatyczne Wątki') || text.includes('Tópicos Automáticos') || 
+                               text.includes('Автоматические Треды')) {
+                        td.textContent = t.autoThreads;
+                    } else if (text.includes('Deep-Search') || text.includes('Deep-Search (>50% Rabatt)') || 
+                               text.includes('Búsqueda Profunda') || text.includes('Recherche Approfondie') || 
+                               text.includes('Głębokie Wyszukiwanie') || text.includes('Busca Profunda') || 
+                               text.includes('Глубокий Поиск')) {
+                        td.textContent = t.deepSearch;
+                    } else if (text.includes('Category Filters') || text.includes('Kategorie-Filter') || 
+                               text.includes('Filtros de Categoría') || text.includes('Filtres de Catégorie') || 
+                               text.includes('Filtry Kategorii') || text.includes('Filtros de Categoria') || 
+                               text.includes('Фильтры Категорий')) {
+                        td.textContent = t.categoryFilters;
+                    } else if (text.includes('DLC & Loot') || text.includes('DLC & Loot Deals') || 
+                               text.includes('Ofertas de DLC y Loot') || text.includes('Offres DLC et Loot') || 
+                               text.includes('Oferty DLC i Loot') || text.includes('Ofertas de DLC e Loot') || 
+                               text.includes('Предложения DLC и Loot')) {
+                        td.textContent = t.dlcLoot;
+                    } else if (text.includes('Priority Support') || text.includes('Priority Support') || 
+                               text.includes('Soporte Prioritario') || text.includes('Support Prioritaire') || 
+                               text.includes('Priorytetowe Wsparcie') || text.includes('Suporte Prioritário') || 
+                               text.includes('Приоритетная Поддержка')) {
+                        td.textContent = t.prioritySupport;
+                    }
+                }
+            });
             
-            const ctaDesc = document.querySelector('.glass.rounded-2xl p');
-            if (ctaDesc && ctaDesc.textContent.includes('Get Premium')) {
-                ctaDesc.textContent = t.getPremiumDesc;
-            }
+            // Update CTA section - erfasst alle Texte, unabhängig von der aktuellen Sprache
+            const ctaHeadings = document.querySelectorAll('h2.gradient-text');
+            ctaHeadings.forEach(heading => {
+                const text = heading.textContent.trim();
+                if (text.includes('Ready to Upgrade') || text.includes('Bereit zum Upgrade') || 
+                    text.includes('¿Listo para Mejorar') || text.includes('Prêt à Améliorer') || 
+                    text.includes('Gotowy do Ulepszenia') || text.includes('Pronto para Melhorar') || 
+                    text.includes('Готовы к Улучшению')) {
+                    heading.textContent = t.readyToUpgrade;
+                }
+            });
             
-            const ctaBtn = document.querySelector('a[href*="stripe"]');
-            if (ctaBtn && ctaBtn.textContent.includes('Get Premium Now')) {
-                ctaBtn.textContent = t.getPremiumNow;
-            }
+            const ctaDescs = document.querySelectorAll('.glass.rounded-2xl p');
+            ctaDescs.forEach(desc => {
+                const text = desc.textContent.trim();
+                if (text.includes('Get Premium for just') || text.includes('Hole dir Premium für nur') || 
+                    text.includes('Obtén Premium por solo') || text.includes('Obtenez Premium pour seulement') || 
+                    text.includes('Uzyskaj Premium za tylko') || text.includes('Obtenha Premium por apenas') || 
+                    text.includes('Получите Premium всего за')) {
+                    desc.textContent = t.getPremiumDesc;
+                }
+            });
+            
+            // Update all "Get Premium" buttons - erfasst alle Buttons mit stripe-Link
+            document.querySelectorAll('a[href*="stripe"]').forEach(btn => {
+                btn.textContent = t.getPremiumNow;
+            });
         }
         
         function changeLanguage(lang) {
