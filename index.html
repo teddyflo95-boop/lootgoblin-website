@@ -957,42 +957,20 @@
                 }
             }
             
-            // Update screenshots section titles and descriptions
-            const screenshotCards = document.querySelectorAll('#screenshots .glass h3');
-            screenshotCards.forEach(card => {
-                const text = card.textContent.trim();
-                if (text === 'Auto Deal Posts' || text.includes('Automatische') || text.includes('Publicaciones') || text.includes('Publications') || text.includes('Automatyczne') || text.includes('Posts Automáticos') || text.includes('Автоматические')) {
-                    card.textContent = t.autoDealPosts || 'Auto Deal Posts';
-                } else if (text === 'Easy Configuration' || text.includes('Einfache Konfiguration') || text.includes('Configuración Fácil') || text.includes('Configuration Facile') || text.includes('Łatwa Konfiguracja') || text.includes('Configuração Fácil') || text.includes('Простая Настройка')) {
-                    card.textContent = t.easyConfiguration || 'Easy Configuration';
-                } else if (text === 'Wishlist System' || text.includes('Wishlist') || text.includes('Lista de Deseos') || text.includes('Liste de Souhaits') || text.includes('Lista Życzeń') || text.includes('Lista de Desejos') || text.includes('Списка Желаний')) {
-                    card.textContent = t.wishlistSystemScreenshot || 'Wishlist System';
-                } else if (text === 'Premium Settings' || text.includes('Premium') || text.includes('Премиум')) {
-                    card.textContent = t.premiumSettings || 'Premium Settings';
-                } else if (text === 'All Platforms' || text.includes('Alle Plattformen') || text.includes('Todas las Plataformas') || text.includes('Toutes les Plateformes') || text.includes('Wszystkie Platformy') || text.includes('Todas as Plataformas') || text.includes('Все Платформы')) {
-                    card.textContent = t.allPlatforms || 'All Platforms';
-                } else if (text === 'Live Statistics' || text.includes('Live-Statistiken') || text.includes('Estadísticas en Vivo') || text.includes('Statistiques en Direct') || text.includes('Statystyki na Żywo') || text.includes('Estatísticas ao Vivo') || text.includes('Живая Статистика')) {
-                    card.textContent = t.liveStatistics || 'Live Statistics';
-                }
-            });
+            // Update screenshots section titles and descriptions - erfasst alle direkt über data-translate Attribute
+            document.querySelectorAll('[data-translate="autoDealPosts"]').forEach(el => el.textContent = t.autoDealPosts);
+            document.querySelectorAll('[data-translate="easyConfiguration"]').forEach(el => el.textContent = t.easyConfiguration);
+            document.querySelectorAll('[data-translate="wishlistSystemScreenshot"]').forEach(el => el.textContent = t.wishlistSystemScreenshot);
+            document.querySelectorAll('[data-translate="premiumSettings"]').forEach(el => el.textContent = t.premiumSettings);
+            document.querySelectorAll('[data-translate="allPlatforms"]').forEach(el => el.textContent = t.allPlatforms);
+            document.querySelectorAll('[data-translate="liveStatistics"]').forEach(el => el.textContent = t.liveStatistics);
             
-            const screenshotDescs = document.querySelectorAll('#screenshots .glass p.text-gray-400');
-            screenshotDescs.forEach(desc => {
-                const text = desc.textContent.trim();
-                if (text.includes('Beautiful embeds') || text.includes('Schöne Embeds') || text.includes('Hermosos embeds') || text.includes('Beaux embeds') || text.includes('Piękne osadzenia') || text.includes('Embeds bonitos') || text.includes('Красивые встраивания')) {
-                    desc.textContent = t.autoDealPostsDesc || text;
-                } else if (text.includes('Simple dropdown menus') || text.includes('Einfache Dropdown-Menüs') || text.includes('Menús desplegables simples') || text.includes('Menus déroulants simples') || text.includes('Proste menu rozwijane') || text.includes('Menus suspensos simples') || text.includes('Простые выпадающие меню')) {
-                    desc.textContent = t.easyConfigurationDesc || text;
-                } else if (text.includes('Track games and get DM') || text.includes('Verfolge Spiele und erhalte DM') || text.includes('Rastrea juegos y recibe DM') || text.includes('Suivez les jeux et recevez DM') || text.includes('Śledź gry i otrzymuj DM') || text.includes('Acompanhe jogos e receba DM') || text.includes('Отслеживайте игры и получайте DM')) {
-                    desc.textContent = t.wishlistSystemScreenshotDesc || text;
-                } else if (text.includes('Custom branding') || text.includes('Custom Branding') || text.includes('Marca personalizada') || text.includes('Marque personnalisée') || text.includes('Niestandardowe branding') || text.includes('Marca personalizada') || text.includes('Пользовательский брендинг')) {
-                    desc.textContent = t.premiumSettingsDesc || text;
-                } else if (text.includes('Steam, Epic, GOG') || text.includes('Steam, Epic, GOG')) {
-                    desc.textContent = t.allPlatformsDesc || text;
-                } else if (text.includes('See servers, deals') || text.includes('Sieh Server, gepostete') || text.includes('Ver servidores, ofertas') || text.includes('Voir serveurs, offres') || text.includes('Zobacz serwery, oferty') || text.includes('Ver servidores, ofertas') || text.includes('См. серверы, предложения')) {
-                    desc.textContent = t.liveStatisticsDesc || text;
-                }
-            });
+            document.querySelectorAll('[data-translate="autoDealPostsDesc"]').forEach(el => el.textContent = t.autoDealPostsDesc);
+            document.querySelectorAll('[data-translate="easyConfigurationDesc"]').forEach(el => el.textContent = t.easyConfigurationDesc);
+            document.querySelectorAll('[data-translate="wishlistSystemScreenshotDesc"]').forEach(el => el.textContent = t.wishlistSystemScreenshotDesc);
+            document.querySelectorAll('[data-translate="premiumSettingsDesc"]').forEach(el => el.textContent = t.premiumSettingsDesc);
+            document.querySelectorAll('[data-translate="allPlatformsDesc"]').forEach(el => el.textContent = t.allPlatformsDesc);
+            document.querySelectorAll('[data-translate="liveStatisticsDesc"]').forEach(el => el.textContent = t.liveStatisticsDesc);
             
             // Update "Want to see more" text
             const wantToSeeMore = document.querySelector('#screenshots p.text-gray-400.mb-4');
@@ -1322,91 +1300,67 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
                 <!-- Screenshot 1: Deal Post -->
                 <div class="glass rounded-2xl overflow-hidden hover:scale-105 transition transform">
-                    <div class="aspect-video bg-gradient-to-br from-green-400/20 to-cyan-400/20 flex items-center justify-center">
-                        <div class="text-center p-6">
-                            <div class="text-6xl mb-4">🎮</div>
-                            <p class="text-gray-300 font-semibold">Deal Post Example</p>
-                            <p class="text-gray-500 text-sm mt-2">Screenshot coming soon</p>
-                        </div>
+                    <div class="aspect-video bg-gradient-to-br from-green-400/20 to-cyan-400/20 overflow-hidden">
+                        <img src="https://i.epvpimg.com/p7HKcab.png" alt="Auto Deal Post" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2">Auto Deal Posts</h3>
-                        <p class="text-gray-400 text-sm">Beautiful embeds with game info, prices, and platforms</p>
+                        <h3 class="font-bold text-lg mb-2" data-translate="autoDealPosts">Auto Deal Posts</h3>
+                        <p class="text-gray-400 text-sm" data-translate="autoDealPostsDesc">Never miss a free game again. Automatically posted to your server!</p>
                     </div>
                 </div>
                 
                 <!-- Screenshot 2: Settings Menu -->
                 <div class="glass rounded-2xl overflow-hidden hover:scale-105 transition transform">
-                    <div class="aspect-video bg-gradient-to-br from-purple-400/20 to-pink-400/20 flex items-center justify-center">
-                        <div class="text-center p-6">
-                            <div class="text-6xl mb-4">⚙️</div>
-                            <p class="text-gray-300 font-semibold">Settings Menu</p>
-                            <p class="text-gray-500 text-sm mt-2">Screenshot coming soon</p>
-                        </div>
+                    <div class="aspect-video bg-gradient-to-br from-purple-400/20 to-pink-400/20 overflow-hidden">
+                        <img src="https://i.epvpimg.com/d0mFgab.png" alt="Easy Configuration" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2">Easy Configuration</h3>
-                        <p class="text-gray-400 text-sm">Simple dropdown menus for all settings</p>
+                        <h3 class="font-bold text-lg mb-2" data-translate="easyConfiguration">Easy Configuration</h3>
+                        <p class="text-gray-400 text-sm" data-translate="easyConfigurationDesc">Simple dropdown menus for all settings</p>
                     </div>
                 </div>
                 
                 <!-- Screenshot 3: Wishlist -->
                 <div class="glass rounded-2xl overflow-hidden hover:scale-105 transition transform">
-                    <div class="aspect-video bg-gradient-to-br from-blue-400/20 to-indigo-400/20 flex items-center justify-center">
-                        <div class="text-center p-6">
-                            <div class="text-6xl mb-4">📋</div>
-                            <p class="text-gray-300 font-semibold">Wishlist Feature</p>
-                            <p class="text-gray-500 text-sm mt-2">Screenshot coming soon</p>
-                        </div>
+                    <div class="aspect-video bg-gradient-to-br from-blue-400/20 to-indigo-400/20 overflow-hidden">
+                        <img src="https://i.epvpimg.com/JvStcab.png" alt="Wishlist System" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2">Wishlist System</h3>
-                        <p class="text-gray-400 text-sm">Track games and get DM notifications</p>
+                        <h3 class="font-bold text-lg mb-2" data-translate="wishlistSystemScreenshot">Wishlist System</h3>
+                        <p class="text-gray-400 text-sm" data-translate="wishlistSystemScreenshotDesc">Track games and get DM notifications</p>
                     </div>
                 </div>
                 
                 <!-- Screenshot 4: Premium Features -->
                 <div class="glass rounded-2xl overflow-hidden hover:scale-105 transition transform">
-                    <div class="aspect-video bg-gradient-to-br from-yellow-400/20 to-orange-400/20 flex items-center justify-center">
-                        <div class="text-center p-6">
-                            <div class="text-6xl mb-4">💎</div>
-                            <p class="text-gray-300 font-semibold">Premium Features</p>
-                            <p class="text-gray-500 text-sm mt-2">Screenshot coming soon</p>
-                        </div>
+                    <div class="aspect-video bg-gradient-to-br from-yellow-400/20 to-orange-400/20 overflow-hidden">
+                        <img src="https://i.epvpimg.com/JpSVeab.png" alt="Premium Settings" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2">Premium Settings</h3>
-                        <p class="text-gray-400 text-sm">Custom branding, auto-threads, and more</p>
+                        <h3 class="font-bold text-lg mb-2" data-translate="premiumSettings">Premium Settings</h3>
+                        <p class="text-gray-400 text-sm" data-translate="premiumSettingsDesc">Custom branding, auto-threads, and more</p>
                     </div>
                 </div>
                 
                 <!-- Screenshot 5: Multi-Platform -->
                 <div class="glass rounded-2xl overflow-hidden hover:scale-105 transition transform">
-                    <div class="aspect-video bg-gradient-to-br from-cyan-400/20 to-teal-400/20 flex items-center justify-center">
-                        <div class="text-center p-6">
-                            <div class="text-6xl mb-4">🌐</div>
-                            <p class="text-gray-300 font-semibold">Multi-Platform</p>
-                            <p class="text-gray-500 text-sm mt-2">Screenshot coming soon</p>
-                        </div>
+                    <div class="aspect-video bg-gradient-to-br from-cyan-400/20 to-teal-400/20 overflow-hidden">
+                        <img src="https://i.epvpimg.com/Bu6Dbab.png" alt="All Platforms" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2">All Platforms</h3>
-                        <p class="text-gray-400 text-sm">Steam, Epic, GOG, PlayStation, Xbox & more</p>
+                        <h3 class="font-bold text-lg mb-2" data-translate="allPlatforms">All Platforms</h3>
+                        <p class="text-gray-400 text-sm" data-translate="allPlatformsDesc">Steam, Epic, GOG, PlayStation, Xbox & more</p>
                     </div>
                 </div>
                 
                 <!-- Screenshot 6: Statistics -->
                 <div class="glass rounded-2xl overflow-hidden hover:scale-105 transition transform">
-                    <div class="aspect-video bg-gradient-to-br from-red-400/20 to-pink-400/20 flex items-center justify-center">
-                        <div class="text-center p-6">
-                            <div class="text-6xl mb-4">📊</div>
-                            <p class="text-gray-300 font-semibold">Bot Statistics</p>
-                            <p class="text-gray-500 text-sm mt-2">Screenshot coming soon</p>
-                        </div>
+                    <div class="aspect-video bg-gradient-to-br from-red-400/20 to-pink-400/20 overflow-hidden">
+                        <img src="https://i.epvpimg.com/zR41bab.png" alt="Live Statistics" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2">Live Statistics</h3>
-                        <p class="text-gray-400 text-sm">See servers, deals posted, and more</p>
+                        <h3 class="font-bold text-lg mb-2" data-translate="liveStatistics">Live Statistics</h3>
+                        <p class="text-gray-400 text-sm" data-translate="liveStatisticsDesc">See servers, deals posted, and more</p>
                     </div>
                 </div>
             </div>
