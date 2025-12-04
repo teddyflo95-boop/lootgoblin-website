@@ -437,19 +437,7 @@
                 }
             });
             
-            // Update navigation
-            const navLinks = document.querySelectorAll('nav a');
-            navLinks.forEach(link => {
-                const text = link.textContent.trim();
-                if (text === 'Features') link.textContent = t.features;
-                else if (text === 'Screenshots') link.textContent = t.screenshots;
-                else if (text === 'Premium') link.textContent = t.premium;
-                else if (text === 'FAQ') link.textContent = t.faq;
-                else if (text === 'Changelog') link.textContent = t.changelog || 'Changelog';
-                else if (text === 'Free vs Premium') link.textContent = t.freeVsPremium || 'Free vs Premium';
-                else if (text === 'Status') link.textContent = t.status || 'Status';
-                else if (text === 'Support') link.textContent = t.support || 'Support';
-            });
+            // Navigation bleibt auf Englisch - nicht übersetzen
             
             // Update stats labels
             const statsLabels = document.querySelectorAll('#live-stats .text-gray-400');
