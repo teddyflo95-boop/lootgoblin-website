@@ -39,9 +39,277 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+        
+        .language-sidebar {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .language-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 140px;
+        }
+        
+        .language-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(0, 255, 136, 0.5);
+            transform: translateX(-5px);
+        }
+        
+        .language-item.active {
+            background: rgba(0, 255, 136, 0.15);
+            border-color: #00ff88;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+        }
+        
+        .language-item .flag {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .language-item .name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .language-item.active .name {
+            color: #00ff88;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 1024px) {
+            .language-sidebar {
+                display: none;
+            }
+        }
     </style>
+    <script>
+        const translations = {
+            de: {
+                title: "📊 Bot Status",
+                backToHome: "← Zurück zur Startseite",
+                botStatus: "Bot Status",
+                checking: "🟢 Prüfe...",
+                online: "🟢 Online",
+                offline: "🔴 Offline",
+                statistics: "Statistiken",
+                totalServers: "Server Gesamt",
+                configuredServers: "Konfigurierte Server",
+                premiumServers: "Premium Server",
+                dealsPosted: "Gepostete Deals",
+                apiStatus: "API Status",
+                operational: "✅ Betriebsbereit"
+            },
+            en: {
+                title: "📊 Bot Status",
+                backToHome: "← Back to Home",
+                botStatus: "Bot Status",
+                checking: "🟢 Checking...",
+                online: "🟢 Online",
+                offline: "🔴 Offline",
+                statistics: "Statistics",
+                totalServers: "Total Servers",
+                configuredServers: "Configured Servers",
+                premiumServers: "Premium Servers",
+                dealsPosted: "Deals Posted",
+                apiStatus: "API Status",
+                operational: "✅ Operational"
+            },
+            es: {
+                title: "📊 Estado del Bot",
+                backToHome: "← Volver al Inicio",
+                botStatus: "Estado del Bot",
+                checking: "🟢 Comprobando...",
+                online: "🟢 En Línea",
+                offline: "🔴 Desconectado",
+                statistics: "Estadísticas",
+                totalServers: "Servidores Totales",
+                configuredServers: "Servidores Configurados",
+                premiumServers: "Servidores Premium",
+                dealsPosted: "Ofertas Publicadas",
+                apiStatus: "Estado de la API",
+                operational: "✅ Operativo"
+            },
+            fr: {
+                title: "📊 État du Bot",
+                backToHome: "← Retour à l'Accueil",
+                botStatus: "État du Bot",
+                checking: "🟢 Vérification...",
+                online: "🟢 En Ligne",
+                offline: "🔴 Hors Ligne",
+                statistics: "Statistiques",
+                totalServers: "Serveurs Totaux",
+                configuredServers: "Serveurs Configurés",
+                premiumServers: "Serveurs Premium",
+                dealsPosted: "Offres Publiées",
+                apiStatus: "État de l'API",
+                operational: "✅ Opérationnel"
+            },
+            pl: {
+                title: "📊 Status Bota",
+                backToHome: "← Powrót do Strony Głównej",
+                botStatus: "Status Bota",
+                checking: "🟢 Sprawdzanie...",
+                online: "🟢 Online",
+                offline: "🔴 Offline",
+                statistics: "Statystyki",
+                totalServers: "Wszystkie Serwery",
+                configuredServers: "Skonfigurowane Serwery",
+                premiumServers: "Serwery Premium",
+                dealsPosted: "Opublikowane Oferty",
+                apiStatus: "Status API",
+                operational: "✅ Działające"
+            },
+            "pt-BR": {
+                title: "📊 Status do Bot",
+                backToHome: "← Voltar ao Início",
+                botStatus: "Status do Bot",
+                checking: "🟢 Verificando...",
+                online: "🟢 Online",
+                offline: "🔴 Offline",
+                statistics: "Estatísticas",
+                totalServers: "Servidores Totais",
+                configuredServers: "Servidores Configurados",
+                premiumServers: "Servidores Premium",
+                dealsPosted: "Ofertas Publicadas",
+                apiStatus: "Status da API",
+                operational: "✅ Operacional"
+            },
+            ru: {
+                title: "📊 Статус Бота",
+                backToHome: "← Назад на Главную",
+                botStatus: "Статус Бота",
+                checking: "🟢 Проверка...",
+                online: "🟢 Онлайн",
+                offline: "🔴 Офлайн",
+                statistics: "Статистика",
+                totalServers: "Всего Серверов",
+                configuredServers: "Настроенные Серверы",
+                premiumServers: "Premium Серверы",
+                dealsPosted: "Опубликованные Предложения",
+                apiStatus: "Статус API",
+                operational: "✅ Работает"
+            }
+        };
+        
+        function getStoredLanguage() {
+            return localStorage.getItem('lootgoblin_lang') || 'en';
+        }
+        
+        function setStoredLanguage(lang) {
+            localStorage.setItem('lootgoblin_lang', lang);
+        }
+        
+        function applyTranslations(lang) {
+            const t = translations[lang] || translations.en;
+            
+            // Update title
+            const titleElement = document.querySelector('h1 span.gradient-text');
+            if (titleElement) titleElement.textContent = t.title;
+            
+            // Update back links
+            document.querySelectorAll('a[href="/"]').forEach(link => {
+                if (link.textContent.includes('Back to Home') || link.textContent.includes('Zurück')) {
+                    link.textContent = t.backToHome;
+                }
+            });
+            
+            // Update section headings
+            const headings = document.querySelectorAll('h2.gradient-text');
+            headings.forEach(h2 => {
+                if (h2.textContent.includes('Bot Status')) h2.textContent = t.botStatus;
+                else if (h2.textContent.includes('Statistics')) h2.textContent = t.statistics;
+                else if (h2.textContent.includes('API Status')) h2.textContent = t.apiStatus;
+            });
+            
+            // Update stat labels
+            const statLabels = document.querySelectorAll('.text-gray-400');
+            statLabels.forEach(label => {
+                if (label.textContent.includes('Total Servers')) label.textContent = t.totalServers;
+                else if (label.textContent.includes('Configured Servers')) label.textContent = t.configuredServers;
+                else if (label.textContent.includes('Premium Servers')) label.textContent = t.premiumServers;
+                else if (label.textContent.includes('Deals Posted')) label.textContent = t.dealsPosted;
+            });
+            
+            // Update API status text
+            const apiStatusTexts = document.querySelectorAll('.flex.items-center span');
+            apiStatusTexts.forEach(span => {
+                if (span.textContent.includes('Operational')) span.textContent = t.operational;
+            });
+        }
+        
+        function changeLanguage(lang) {
+            setStoredLanguage(lang);
+            applyTranslations(lang);
+            
+            document.querySelectorAll('.language-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            const activeItem = document.querySelector(`.language-item[data-lang="${lang}"]`);
+            if (activeItem) {
+                activeItem.classList.add('active');
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const lang = getStoredLanguage();
+            applyTranslations(lang);
+            
+            const activeItem = document.querySelector(`.language-item[data-lang="${lang}"]`);
+            if (activeItem) {
+                activeItem.classList.add('active');
+            }
+        });
+    </script>
 </head>
 <body class="text-white">
+    <!-- Language Sidebar -->
+    <div class="language-sidebar">
+        <div class="language-item" data-lang="de" onclick="changeLanguage('de')">
+            <span class="flag">🇩🇪</span>
+            <span class="name">Deutsch</span>
+        </div>
+        <div class="language-item" data-lang="en" onclick="changeLanguage('en')">
+            <span class="flag">🇬🇧</span>
+            <span class="name">English</span>
+        </div>
+        <div class="language-item" data-lang="es" onclick="changeLanguage('es')">
+            <span class="flag">🇪🇸</span>
+            <span class="name">Español</span>
+        </div>
+        <div class="language-item" data-lang="fr" onclick="changeLanguage('fr')">
+            <span class="flag">🇫🇷</span>
+            <span class="name">Français</span>
+        </div>
+        <div class="language-item" data-lang="pl" onclick="changeLanguage('pl')">
+            <span class="flag">🇵🇱</span>
+            <span class="name">Polski</span>
+        </div>
+        <div class="language-item" data-lang="pt-BR" onclick="changeLanguage('pt-BR')">
+            <span class="flag">🇧🇷</span>
+            <span class="name">Português</span>
+        </div>
+        <div class="language-item" data-lang="ru" onclick="changeLanguage('ru')">
+            <span class="flag">🇷🇺</span>
+            <span class="name">Русский</span>
+        </div>
+    </div>
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 glass">
         <div class="container mx-auto px-6 py-4">
@@ -69,7 +337,7 @@
             <!-- Bot Status -->
             <div class="glass rounded-2xl p-8 mb-8">
                 <h2 class="text-2xl font-bold mb-4 gradient-text">Bot Status</h2>
-                <div id="bot-status" class="inline-block px-6 py-3 rounded-full font-bold bg-green-400/20 text-green-400 border-2 border-green-400">
+                <div id="bot-status" class="inline-block px-6 py-3 rounded-full font-bold bg-green-400/20 text-green-400 border-2 border-green-400" data-translate="checking">
                     🟢 Checking...
                 </div>
             </div>
@@ -138,7 +406,9 @@
                 
                 if (response.ok) {
                     const data = await response.json();
-                    document.getElementById('bot-status').innerHTML = '🟢 Online';
+                    const lang = getStoredLanguage();
+                    const t = translations[lang] || translations.en;
+                    document.getElementById('bot-status').innerHTML = t.online;
                     document.getElementById('bot-status').className = 'inline-block px-6 py-3 rounded-full font-bold bg-green-400/20 text-green-400 border-2 border-green-400';
                     
                     const serverCount = data?.servers?.total || 0;
@@ -154,7 +424,9 @@
                     throw new Error('API not available');
                 }
             } catch (error) {
-                document.getElementById('bot-status').innerHTML = '🔴 Offline';
+                const lang = getStoredLanguage();
+                const t = translations[lang] || translations.en;
+                document.getElementById('bot-status').innerHTML = t.offline;
                 document.getElementById('bot-status').className = 'inline-block px-6 py-3 rounded-full font-bold bg-red-400/20 text-red-400 border-2 border-red-400';
             }
         }

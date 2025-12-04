@@ -83,6 +83,64 @@
             100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
         }
         
+        .language-sidebar {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .language-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 140px;
+        }
+        
+        .language-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(0, 255, 136, 0.5);
+            transform: translateX(-5px);
+        }
+        
+        .language-item.active {
+            background: rgba(0, 255, 136, 0.15);
+            border-color: #00ff88;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+        }
+        
+        .language-item .flag {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .language-item .name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .language-item.active .name {
+            color: #00ff88;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 1024px) {
+            .language-sidebar {
+                display: none;
+            }
+        }
     </style>
     <script>
         const translations = {
@@ -290,13 +348,13 @@
             setStoredLanguage(lang);
             applyTranslations(lang);
             
-            // Update active button
-            document.querySelectorAll('.language-btn').forEach(btn => {
-                btn.classList.remove('border-2', 'border-green-400/50');
+            // Update active language item
+            document.querySelectorAll('.language-item').forEach(item => {
+                item.classList.remove('active');
             });
-            const activeBtn = document.querySelector(`.language-btn[data-lang="${lang}"]`);
-            if (activeBtn) {
-                activeBtn.classList.add('border-2', 'border-green-400/50');
+            const activeItem = document.querySelector(`.language-item[data-lang="${lang}"]`);
+            if (activeItem) {
+                activeItem.classList.add('active');
             }
         }
         
@@ -304,15 +362,47 @@
             const lang = getStoredLanguage();
             applyTranslations(lang);
             
-            // Highlight active language button
-            const activeBtn = document.querySelector(`.language-btn[data-lang="${lang}"]`);
-            if (activeBtn) {
-                activeBtn.classList.add('border-2', 'border-green-400/50');
+            // Highlight active language item
+            const activeItem = document.querySelector(`.language-item[data-lang="${lang}"]`);
+            if (activeItem) {
+                activeItem.classList.add('active');
             }
         });
     </script>
 </head>
 <body class="text-white overflow-x-hidden">
+    <!-- Language Sidebar -->
+    <div class="language-sidebar">
+        <div class="language-item" data-lang="de" onclick="changeLanguage('de')">
+            <span class="flag">🇩🇪</span>
+            <span class="name">Deutsch</span>
+        </div>
+        <div class="language-item" data-lang="en" onclick="changeLanguage('en')">
+            <span class="flag">🇬🇧</span>
+            <span class="name">English</span>
+        </div>
+        <div class="language-item" data-lang="es" onclick="changeLanguage('es')">
+            <span class="flag">🇪🇸</span>
+            <span class="name">Español</span>
+        </div>
+        <div class="language-item" data-lang="fr" onclick="changeLanguage('fr')">
+            <span class="flag">🇫🇷</span>
+            <span class="name">Français</span>
+        </div>
+        <div class="language-item" data-lang="pl" onclick="changeLanguage('pl')">
+            <span class="flag">🇵🇱</span>
+            <span class="name">Polski</span>
+        </div>
+        <div class="language-item" data-lang="pt-BR" onclick="changeLanguage('pt-BR')">
+            <span class="flag">🇧🇷</span>
+            <span class="name">Português</span>
+        </div>
+        <div class="language-item" data-lang="ru" onclick="changeLanguage('ru')">
+            <span class="flag">🇷🇺</span>
+            <span class="name">Русский</span>
+        </div>
+    </div>
+    
     <!-- Particles Background -->
     <div id="particles" class="fixed inset-0 pointer-events-none z-0"></div>
     
@@ -506,37 +596,37 @@
             <!-- Supported Languages -->
             <div class="mt-16 text-center">
                 <p class="text-gray-400 mb-6 text-lg">🌍 Available in multiple languages</p>
-                <div class="flex flex-wrap justify-center items-center gap-3 mb-4">
-                    <button onclick="changeLanguage('de')" class="glass rounded-xl px-4 py-2 flex items-center space-x-2 hover:scale-105 transition transform cursor-pointer language-btn" data-lang="de">
+                <div class="flex flex-wrap justify-center items-center gap-3">
+                    <div class="glass rounded-xl px-4 py-2 flex items-center space-x-2">
                         <span class="text-xl">🇩🇪</span>
                         <span class="font-semibold">Deutsch</span>
-                    </button>
-                    <button onclick="changeLanguage('en')" class="glass rounded-xl px-4 py-2 flex items-center space-x-2 hover:scale-105 transition transform cursor-pointer language-btn border-2 border-green-400/50" data-lang="en">
+                    </div>
+                    <div class="glass rounded-xl px-4 py-2 flex items-center space-x-2">
                         <span class="text-xl">🇬🇧</span>
                         <span class="font-semibold">English</span>
-                    </button>
-                    <button onclick="changeLanguage('es')" class="glass rounded-xl px-4 py-2 flex items-center space-x-2 hover:scale-105 transition transform cursor-pointer language-btn" data-lang="es">
+                    </div>
+                    <div class="glass rounded-xl px-4 py-2 flex items-center space-x-2">
                         <span class="text-xl">🇪🇸</span>
                         <span class="font-semibold">Español</span>
-                    </button>
-                    <button onclick="changeLanguage('fr')" class="glass rounded-xl px-4 py-2 flex items-center space-x-2 hover:scale-105 transition transform cursor-pointer language-btn" data-lang="fr">
+                    </div>
+                    <div class="glass rounded-xl px-4 py-2 flex items-center space-x-2">
                         <span class="text-xl">🇫🇷</span>
                         <span class="font-semibold">Français</span>
-                    </button>
-                    <button onclick="changeLanguage('pl')" class="glass rounded-xl px-4 py-2 flex items-center space-x-2 hover:scale-105 transition transform cursor-pointer language-btn" data-lang="pl">
+                    </div>
+                    <div class="glass rounded-xl px-4 py-2 flex items-center space-x-2">
                         <span class="text-xl">🇵🇱</span>
                         <span class="font-semibold">Polski</span>
-                    </button>
-                    <button onclick="changeLanguage('pt-BR')" class="glass rounded-xl px-4 py-2 flex items-center space-x-2 hover:scale-105 transition transform cursor-pointer language-btn" data-lang="pt-BR">
+                    </div>
+                    <div class="glass rounded-xl px-4 py-2 flex items-center space-x-2">
                         <span class="text-xl">🇧🇷</span>
                         <span class="font-semibold">Português</span>
-                    </button>
-                    <button onclick="changeLanguage('ru')" class="glass rounded-xl px-4 py-2 flex items-center space-x-2 hover:scale-105 transition transform cursor-pointer language-btn" data-lang="ru">
+                    </div>
+                    <div class="glass rounded-xl px-4 py-2 flex items-center space-x-2">
                         <span class="text-xl">🇷🇺</span>
                         <span class="font-semibold">Русский</span>
-                    </button>
+                    </div>
                 </div>
-                <p class="text-gray-500 text-sm mt-4">Click a language above to change the website language</p>
+                <p class="text-gray-500 text-sm mt-4">Change your language anytime in /settings</p>
             </div>
         </div>
     </section>

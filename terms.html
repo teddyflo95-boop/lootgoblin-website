@@ -39,9 +39,184 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+        
+        .language-sidebar {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .language-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 140px;
+        }
+        
+        .language-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(0, 255, 136, 0.5);
+            transform: translateX(-5px);
+        }
+        
+        .language-item.active {
+            background: rgba(0, 255, 136, 0.15);
+            border-color: #00ff88;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+        }
+        
+        .language-item .flag {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .language-item .name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .language-item.active .name {
+            color: #00ff88;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 1024px) {
+            .language-sidebar {
+                display: none;
+            }
+        }
     </style>
+    <script>
+        const translations = {
+            de: {
+                title: "Nutzungsbedingungen",
+                home: "Startseite",
+                support: "Support"
+            },
+            en: {
+                title: "Terms of Service",
+                home: "Home",
+                support: "Support"
+            },
+            es: {
+                title: "Términos de Servicio",
+                home: "Inicio",
+                support: "Soporte"
+            },
+            fr: {
+                title: "Conditions d'Utilisation",
+                home: "Accueil",
+                support: "Support"
+            },
+            pl: {
+                title: "Regulamin",
+                home: "Strona Główna",
+                support: "Wsparcie"
+            },
+            "pt-BR": {
+                title: "Termos de Serviço",
+                home: "Início",
+                support: "Suporte"
+            },
+            ru: {
+                title: "Условия Использования",
+                home: "Главная",
+                support: "Поддержка"
+            }
+        };
+        
+        function getStoredLanguage() {
+            return localStorage.getItem('lootgoblin_lang') || 'en';
+        }
+        
+        function setStoredLanguage(lang) {
+            localStorage.setItem('lootgoblin_lang', lang);
+        }
+        
+        function applyTranslations(lang) {
+            const t = translations[lang] || translations.en;
+            
+            // Update title
+            const titleElement = document.querySelector('h1 span.gradient-text');
+            if (titleElement) titleElement.textContent = t.title;
+            
+            // Update navigation
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                if (link.textContent.includes('Home')) link.textContent = t.home;
+                if (link.textContent.includes('Support')) link.textContent = t.support;
+            });
+        }
+        
+        function changeLanguage(lang) {
+            setStoredLanguage(lang);
+            applyTranslations(lang);
+            
+            document.querySelectorAll('.language-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            const activeItem = document.querySelector(`.language-item[data-lang="${lang}"]`);
+            if (activeItem) {
+                activeItem.classList.add('active');
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const lang = getStoredLanguage();
+            applyTranslations(lang);
+            
+            const activeItem = document.querySelector(`.language-item[data-lang="${lang}"]`);
+            if (activeItem) {
+                activeItem.classList.add('active');
+            }
+        });
+    </script>
 </head>
 <body class="text-white">
+    <!-- Language Sidebar -->
+    <div class="language-sidebar">
+        <div class="language-item" data-lang="de" onclick="changeLanguage('de')">
+            <span class="flag">🇩🇪</span>
+            <span class="name">Deutsch</span>
+        </div>
+        <div class="language-item" data-lang="en" onclick="changeLanguage('en')">
+            <span class="flag">🇬🇧</span>
+            <span class="name">English</span>
+        </div>
+        <div class="language-item" data-lang="es" onclick="changeLanguage('es')">
+            <span class="flag">🇪🇸</span>
+            <span class="name">Español</span>
+        </div>
+        <div class="language-item" data-lang="fr" onclick="changeLanguage('fr')">
+            <span class="flag">🇫🇷</span>
+            <span class="name">Français</span>
+        </div>
+        <div class="language-item" data-lang="pl" onclick="changeLanguage('pl')">
+            <span class="flag">🇵🇱</span>
+            <span class="name">Polski</span>
+        </div>
+        <div class="language-item" data-lang="pt-BR" onclick="changeLanguage('pt-BR')">
+            <span class="flag">🇧🇷</span>
+            <span class="name">Português</span>
+        </div>
+        <div class="language-item" data-lang="ru" onclick="changeLanguage('ru')">
+            <span class="flag">🇷🇺</span>
+            <span class="name">Русский</span>
+        </div>
+    </div>
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 glass">
         <div class="container mx-auto px-6 py-4">

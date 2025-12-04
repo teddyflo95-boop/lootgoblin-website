@@ -39,9 +39,356 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+        
+        .language-sidebar {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .language-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 140px;
+        }
+        
+        .language-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(0, 255, 136, 0.5);
+            transform: translateX(-5px);
+        }
+        
+        .language-item.active {
+            background: rgba(0, 255, 136, 0.15);
+            border-color: #00ff88;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+        }
+        
+        .language-item .flag {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .language-item .name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .language-item.active .name {
+            color: #00ff88;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 1024px) {
+            .language-sidebar {
+                display: none;
+            }
+        }
     </style>
+    <script>
+        const translations = {
+            de: {
+                title: "💎 Free vs Premium",
+                backToHome: "← Zurück zur Startseite",
+                feature: "Feature",
+                free: "Free",
+                premium: "Premium",
+                autoDealPosts: "Automatische Deal-Posts",
+                platformFilters: "Plattform-Filter",
+                wishlistSystem: "Wishlist-System",
+                wishlistLimit: "Wishlist-Limit",
+                games: "Spiele",
+                dmNotifications: "DM-Benachrichtigungen",
+                multiLanguage: "Multi-Sprachen-Support",
+                customBranding: "Custom Branding (Name & Avatar)",
+                autoThreads: "Auto-Threads",
+                deepSearch: "Deep-Search (>50% Rabatt)",
+                categoryFilters: "Kategorie-Filter",
+                dlcLoot: "DLC & Loot Deals",
+                prioritySupport: "Priority Support",
+                readyToUpgrade: "🚀 Bereit zum Upgrade?",
+                getPremiumDesc: "Hole dir Premium für nur €1,99/Monat und schalte alle Features frei!",
+                getPremiumNow: "💎 Jetzt Premium holen"
+            },
+            en: {
+                title: "💎 Free vs Premium",
+                backToHome: "← Back to Home",
+                feature: "Feature",
+                free: "Free",
+                premium: "Premium",
+                autoDealPosts: "Auto Deal Posts",
+                platformFilters: "Platform Filters",
+                wishlistSystem: "Wishlist System",
+                wishlistLimit: "Wishlist Limit",
+                games: "games",
+                dmNotifications: "DM Notifications",
+                multiLanguage: "Multi-Language Support",
+                customBranding: "Custom Branding (Name & Avatar)",
+                autoThreads: "Auto-Threads",
+                deepSearch: "Deep-Search (>50% Discount)",
+                categoryFilters: "Category Filters",
+                dlcLoot: "DLC & Loot Deals",
+                prioritySupport: "Priority Support",
+                readyToUpgrade: "🚀 Ready to Upgrade?",
+                getPremiumDesc: "Get Premium for just €1.99/month and unlock all features!",
+                getPremiumNow: "💎 Get Premium Now"
+            },
+            es: {
+                title: "💎 Gratis vs Premium",
+                backToHome: "← Volver al Inicio",
+                feature: "Característica",
+                free: "Gratis",
+                premium: "Premium",
+                autoDealPosts: "Publicaciones Automáticas de Ofertas",
+                platformFilters: "Filtros de Plataforma",
+                wishlistSystem: "Sistema de Lista de Deseos",
+                wishlistLimit: "Límite de Lista de Deseos",
+                games: "juegos",
+                dmNotifications: "Notificaciones DM",
+                multiLanguage: "Soporte Multiidioma",
+                customBranding: "Marca Personalizada (Nombre y Avatar)",
+                autoThreads: "Hilos Automáticos",
+                deepSearch: "Búsqueda Profunda (>50% Descuento)",
+                categoryFilters: "Filtros de Categoría",
+                dlcLoot: "Ofertas de DLC y Loot",
+                prioritySupport: "Soporte Prioritario",
+                readyToUpgrade: "🚀 ¿Listo para Mejorar?",
+                getPremiumDesc: "¡Obtén Premium por solo €1,99/mes y desbloquea todas las funciones!",
+                getPremiumNow: "💎 Obtener Premium Ahora"
+            },
+            fr: {
+                title: "💎 Gratuit vs Premium",
+                backToHome: "← Retour à l'Accueil",
+                feature: "Fonctionnalité",
+                free: "Gratuit",
+                premium: "Premium",
+                autoDealPosts: "Publications Automatiques d'Offres",
+                platformFilters: "Filtres de Plateforme",
+                wishlistSystem: "Système de Liste de Souhaits",
+                wishlistLimit: "Limite de Liste de Souhaits",
+                games: "jeux",
+                dmNotifications: "Notifications DM",
+                multiLanguage: "Support Multi-Langues",
+                customBranding: "Personnalisation (Nom et Avatar)",
+                autoThreads: "Fils Automatiques",
+                deepSearch: "Recherche Approfondie (>50% de Réduction)",
+                categoryFilters: "Filtres de Catégorie",
+                dlcLoot: "Offres DLC et Loot",
+                prioritySupport: "Support Prioritaire",
+                readyToUpgrade: "🚀 Prêt à Améliorer?",
+                getPremiumDesc: "Obtenez Premium pour seulement €1,99/mois et débloquez toutes les fonctionnalités!",
+                getPremiumNow: "💎 Obtenir Premium Maintenant"
+            },
+            pl: {
+                title: "💎 Darmowe vs Premium",
+                backToHome: "← Powrót do Strony Głównej",
+                feature: "Funkcja",
+                free: "Darmowe",
+                premium: "Premium",
+                autoDealPosts: "Automatyczne Posty Ofert",
+                platformFilters: "Filtry Platform",
+                wishlistSystem: "System Listy Życzeń",
+                wishlistLimit: "Limit Listy Życzeń",
+                games: "gier",
+                dmNotifications: "Powiadomienia DM",
+                multiLanguage: "Obsługa Wielojęzyczna",
+                customBranding: "Niestandardowe Branding (Nazwa i Avatar)",
+                autoThreads: "Automatyczne Wątki",
+                deepSearch: "Głębokie Wyszukiwanie (>50% Zniżki)",
+                categoryFilters: "Filtry Kategorii",
+                dlcLoot: "Oferty DLC i Loot",
+                prioritySupport: "Priorytetowe Wsparcie",
+                readyToUpgrade: "🚀 Gotowy do Ulepszenia?",
+                getPremiumDesc: "Uzyskaj Premium za tylko €1,99/miesiąc i odblokuj wszystkie funkcje!",
+                getPremiumNow: "💎 Uzyskaj Premium Teraz"
+            },
+            "pt-BR": {
+                title: "💎 Grátis vs Premium",
+                backToHome: "← Voltar ao Início",
+                feature: "Recurso",
+                free: "Grátis",
+                premium: "Premium",
+                autoDealPosts: "Posts Automáticos de Ofertas",
+                platformFilters: "Filtros de Plataforma",
+                wishlistSystem: "Sistema de Lista de Desejos",
+                wishlistLimit: "Limite de Lista de Desejos",
+                games: "jogos",
+                dmNotifications: "Notificações DM",
+                multiLanguage: "Suporte Multi-Idioma",
+                customBranding: "Marca Personalizada (Nome e Avatar)",
+                autoThreads: "Tópicos Automáticos",
+                deepSearch: "Busca Profunda (>50% Desconto)",
+                categoryFilters: "Filtros de Categoria",
+                dlcLoot: "Ofertas de DLC e Loot",
+                prioritySupport: "Suporte Prioritário",
+                readyToUpgrade: "🚀 Pronto para Melhorar?",
+                getPremiumDesc: "Obtenha Premium por apenas €1,99/mês e desbloqueie todos os recursos!",
+                getPremiumNow: "💎 Obter Premium Agora"
+            },
+            ru: {
+                title: "💎 Бесплатно vs Premium",
+                backToHome: "← Назад на Главную",
+                feature: "Функция",
+                free: "Бесплатно",
+                premium: "Premium",
+                autoDealPosts: "Автоматические Посты Предложений",
+                platformFilters: "Фильтры Платформ",
+                wishlistSystem: "Система Списка Желаний",
+                wishlistLimit: "Лимит Списка Желаний",
+                games: "игр",
+                dmNotifications: "Уведомления в ЛС",
+                multiLanguage: "Многоязычная Поддержка",
+                customBranding: "Пользовательский Брендинг (Имя и Аватар)",
+                autoThreads: "Автоматические Треды",
+                deepSearch: "Глубокий Поиск (>50% Скидка)",
+                categoryFilters: "Фильтры Категорий",
+                dlcLoot: "Предложения DLC и Loot",
+                prioritySupport: "Приоритетная Поддержка",
+                readyToUpgrade: "🚀 Готовы к Улучшению?",
+                getPremiumDesc: "Получите Premium всего за €1,99/месяц и разблокируйте все функции!",
+                getPremiumNow: "💎 Получить Premium Сейчас"
+            }
+        };
+        
+        function getStoredLanguage() {
+            return localStorage.getItem('lootgoblin_lang') || 'en';
+        }
+        
+        function setStoredLanguage(lang) {
+            localStorage.setItem('lootgoblin_lang', lang);
+        }
+        
+        function applyTranslations(lang) {
+            const t = translations[lang] || translations.en;
+            
+            // Update title
+            const titleElement = document.querySelector('h1 span.gradient-text');
+            if (titleElement) titleElement.textContent = t.title;
+            
+            // Update back links
+            document.querySelectorAll('a[href="/"]').forEach(link => {
+                if (link.textContent.includes('Back to Home') || link.textContent.includes('Zurück')) {
+                    link.textContent = t.backToHome;
+                }
+            });
+            
+            // Update table headers
+            const thElements = document.querySelectorAll('th');
+            thElements.forEach(th => {
+                if (th.textContent.includes('Feature')) th.textContent = t.feature;
+                if (th.textContent.includes('Free')) th.textContent = t.free;
+                if (th.textContent.includes('Premium')) th.textContent = t.premium;
+            });
+            
+            // Update table rows
+            const rows = document.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                const td = row.querySelector('td');
+                if (td) {
+                    const text = td.textContent.trim();
+                    if (text.includes('Auto Deal Posts')) td.textContent = t.autoDealPosts;
+                    else if (text.includes('Platform Filters')) td.textContent = t.platformFilters;
+                    else if (text.includes('Wishlist System')) td.textContent = t.wishlistSystem;
+                    else if (text.includes('Wishlist Limit')) td.textContent = t.wishlistLimit;
+                    else if (text.includes('games')) td.textContent = td.textContent.replace('games', t.games);
+                    else if (text.includes('DM Notifications')) td.textContent = t.dmNotifications;
+                    else if (text.includes('Multi-Language')) td.textContent = t.multiLanguage;
+                    else if (text.includes('Custom Branding')) td.textContent = t.customBranding;
+                    else if (text.includes('Auto-Threads')) td.textContent = t.autoThreads;
+                    else if (text.includes('Deep-Search')) td.textContent = t.deepSearch;
+                    else if (text.includes('Category Filters')) td.textContent = t.categoryFilters;
+                    else if (text.includes('DLC & Loot')) td.textContent = t.dlcLoot;
+                    else if (text.includes('Priority Support')) td.textContent = t.prioritySupport;
+                }
+            });
+            
+            // Update CTA section
+            const ctaHeading = document.querySelector('h2.gradient-text');
+            if (ctaHeading && ctaHeading.textContent.includes('Ready to Upgrade')) {
+                ctaHeading.textContent = t.readyToUpgrade;
+            }
+            
+            const ctaDesc = document.querySelector('.glass.rounded-2xl p');
+            if (ctaDesc && ctaDesc.textContent.includes('Get Premium')) {
+                ctaDesc.textContent = t.getPremiumDesc;
+            }
+            
+            const ctaBtn = document.querySelector('a[href*="stripe"]');
+            if (ctaBtn && ctaBtn.textContent.includes('Get Premium Now')) {
+                ctaBtn.textContent = t.getPremiumNow;
+            }
+        }
+        
+        function changeLanguage(lang) {
+            setStoredLanguage(lang);
+            applyTranslations(lang);
+            
+            document.querySelectorAll('.language-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            const activeItem = document.querySelector(`.language-item[data-lang="${lang}"]`);
+            if (activeItem) {
+                activeItem.classList.add('active');
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const lang = getStoredLanguage();
+            applyTranslations(lang);
+            
+            const activeItem = document.querySelector(`.language-item[data-lang="${lang}"]`);
+            if (activeItem) {
+                activeItem.classList.add('active');
+            }
+        });
+    </script>
 </head>
 <body class="text-white">
+    <!-- Language Sidebar -->
+    <div class="language-sidebar">
+        <div class="language-item" data-lang="de" onclick="changeLanguage('de')">
+            <span class="flag">🇩🇪</span>
+            <span class="name">Deutsch</span>
+        </div>
+        <div class="language-item" data-lang="en" onclick="changeLanguage('en')">
+            <span class="flag">🇬🇧</span>
+            <span class="name">English</span>
+        </div>
+        <div class="language-item" data-lang="es" onclick="changeLanguage('es')">
+            <span class="flag">🇪🇸</span>
+            <span class="name">Español</span>
+        </div>
+        <div class="language-item" data-lang="fr" onclick="changeLanguage('fr')">
+            <span class="flag">🇫🇷</span>
+            <span class="name">Français</span>
+        </div>
+        <div class="language-item" data-lang="pl" onclick="changeLanguage('pl')">
+            <span class="flag">🇵🇱</span>
+            <span class="name">Polski</span>
+        </div>
+        <div class="language-item" data-lang="pt-BR" onclick="changeLanguage('pt-BR')">
+            <span class="flag">🇧🇷</span>
+            <span class="name">Português</span>
+        </div>
+        <div class="language-item" data-lang="ru" onclick="changeLanguage('ru')">
+            <span class="flag">🇷🇺</span>
+            <span class="name">Русский</span>
+        </div>
+    </div>
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 glass">
         <div class="container mx-auto px-6 py-4">
