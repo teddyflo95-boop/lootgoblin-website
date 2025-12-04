@@ -27,3 +27,6 @@ Modern landing page for LootGoblin Discord Bot.
 Stats are fetched from:
 `https://loot-goblin-production.up.railway.app/api/stats`
 
+
+
+

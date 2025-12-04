@@ -82,9 +82,270 @@
             90% { opacity: 1; }
             100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
         }
+        
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .language-selector select {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 10px 15px;
+            color: #fff;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .language-selector select:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #00ff88;
+        }
+        
+        @media (max-width: 768px) {
+            .language-selector {
+                top: 80px;
+                right: 10px;
+            }
+            .language-selector select {
+                font-size: 0.8rem;
+                padding: 8px 12px;
+            }
+        }
     </style>
+    <script>
+        const translations = {
+            de: {
+                title: "LootGoblin",
+                subtitle: "Verpasse nie wieder ein kostenloses Spiel!",
+                description: "Verfolge kostenlose Spiele & Deals von Steam, Epic Games, GOG, PlayStation, Xbox, Nintendo Switch und mehr. Erhalte sofortige Benachrichtigungen, wenn deine Wunschlisten-Spiele kostenlos werden!",
+                joinDiscord: "💬 Tritt unserem Discord bei für Updates, Changelogs und Community!",
+                addBot: "🚀 Bot zu Discord hinzufügen",
+                getPremium: "💎 Premium erhalten",
+                features: "Powerful Features",
+                featuresDesc: "Alles was du brauchst, um nie ein kostenloses Spiel zu verpassen",
+                screenshots: "See LootGoblin in Action",
+                screenshotsDesc: "Sieh dir an, wie der Bot auf deinem Discord-Server funktioniert",
+                faq: "Frequently Asked Questions",
+                faqDesc: "Hast du Fragen? Wir haben Antworten!",
+                premium: "LootGoblin Premium",
+                premiumPrice: "€1,99/Monat",
+                premiumDesc: "Schalte mächtige Features für deinen Server frei",
+                community: "Join the LootGoblin Community!",
+                communityDesc: "Erhalte die neuesten Updates, exklusive Features, Changelogs und verbinde dich mit anderen Gamern!",
+                joinDiscordBtn: "🚀 Discord Server beitreten",
+                addBotBtn: "➕ Bot zum Server hinzufügen"
+            },
+            en: {
+                title: "LootGoblin",
+                subtitle: "Never miss a free game again!",
+                description: "Track free games & deals from Steam, Epic Games, GOG, PlayStation, Xbox, Nintendo Switch and more. Get notified instantly when your wishlist games go free!",
+                joinDiscord: "💬 Join our Discord for updates, changelogs, and community!",
+                addBot: "🚀 Add to Discord",
+                getPremium: "💎 Get Premium",
+                features: "Powerful Features",
+                featuresDesc: "Everything you need to never miss a free game",
+                screenshots: "See LootGoblin in Action",
+                screenshotsDesc: "Check out how the bot works in your Discord server",
+                faq: "Frequently Asked Questions",
+                faqDesc: "Got questions? We've got answers!",
+                premium: "LootGoblin Premium",
+                premiumPrice: "€1.99/month",
+                premiumDesc: "Unlock powerful features for your server",
+                community: "Join the LootGoblin Community!",
+                communityDesc: "Get the latest updates, exclusive features, changelogs, and connect with other gamers!",
+                joinDiscordBtn: "🚀 Join Discord Server",
+                addBotBtn: "➕ Add Bot to Server"
+            },
+            es: {
+                title: "LootGoblin",
+                subtitle: "¡No te pierdas ningún juego gratis!",
+                description: "Rastrea juegos gratis y ofertas de Steam, Epic Games, GOG, PlayStation, Xbox, Nintendo Switch y más. ¡Recibe notificaciones al instante cuando tus juegos de la lista de deseos sean gratis!",
+                joinDiscord: "💬 ¡Únete a nuestro Discord para actualizaciones, changelogs y comunidad!",
+                addBot: "🚀 Añadir a Discord",
+                getPremium: "💎 Obtener Premium",
+                features: "Características Poderosas",
+                featuresDesc: "Todo lo que necesitas para no perderte ningún juego gratis",
+                screenshots: "Ver LootGoblin en Acción",
+                screenshotsDesc: "Mira cómo funciona el bot en tu servidor de Discord",
+                faq: "Preguntas Frecuentes",
+                faqDesc: "¿Tienes preguntas? ¡Tenemos respuestas!",
+                premium: "LootGoblin Premium",
+                premiumPrice: "€1,99/mes",
+                premiumDesc: "Desbloquea características poderosas para tu servidor",
+                community: "¡Únete a la Comunidad LootGoblin!",
+                communityDesc: "¡Obtén las últimas actualizaciones, características exclusivas, changelogs y conéctate con otros jugadores!",
+                joinDiscordBtn: "🚀 Unirse al Servidor de Discord",
+                addBotBtn: "➕ Añadir Bot al Servidor"
+            },
+            fr: {
+                title: "LootGoblin",
+                subtitle: "Ne manquez plus jamais un jeu gratuit !",
+                description: "Suivez les jeux gratuits et les offres de Steam, Epic Games, GOG, PlayStation, Xbox, Nintendo Switch et plus encore. Soyez notifié instantanément lorsque vos jeux de la liste de souhaits deviennent gratuits !",
+                joinDiscord: "💬 Rejoignez notre Discord pour les mises à jour, changelogs et la communauté !",
+                addBot: "🚀 Ajouter à Discord",
+                getPremium: "💎 Obtenir Premium",
+                features: "Fonctionnalités Puissantes",
+                featuresDesc: "Tout ce dont vous avez besoin pour ne jamais manquer un jeu gratuit",
+                screenshots: "Voir LootGoblin en Action",
+                screenshotsDesc: "Découvrez comment le bot fonctionne sur votre serveur Discord",
+                faq: "Questions Fréquemment Posées",
+                faqDesc: "Des questions ? Nous avons les réponses !",
+                premium: "LootGoblin Premium",
+                premiumPrice: "€1,99/mois",
+                premiumDesc: "Débloquez des fonctionnalités puissantes pour votre serveur",
+                community: "Rejoignez la Communauté LootGoblin !",
+                communityDesc: "Obtenez les dernières mises à jour, fonctionnalités exclusives, changelogs et connectez-vous avec d'autres joueurs !",
+                joinDiscordBtn: "🚀 Rejoindre le Serveur Discord",
+                addBotBtn: "➕ Ajouter le Bot au Serveur"
+            },
+            pl: {
+                title: "LootGoblin",
+                subtitle: "Nie przegap darmowej gry!",
+                description: "Śledź darmowe gry i oferty ze Steam, Epic Games, GOG, PlayStation, Xbox, Nintendo Switch i więcej. Otrzymuj natychmiastowe powiadomienia, gdy gry z twojej listy życzeń staną się darmowe!",
+                joinDiscord: "💬 Dołącz do naszego Discorda, aby otrzymywać aktualizacje, changelogi i społeczność!",
+                addBot: "🚀 Dodaj do Discord",
+                getPremium: "💎 Uzyskaj Premium",
+                features: "Potężne Funkcje",
+                featuresDesc: "Wszystko, czego potrzebujesz, aby nie przegapić darmowej gry",
+                screenshots: "Zobacz LootGoblin w Akcji",
+                screenshotsDesc: "Sprawdź, jak bot działa na twoim serwerze Discord",
+                faq: "Często Zadawane Pytania",
+                faqDesc: "Masz pytania? Mamy odpowiedzi!",
+                premium: "LootGoblin Premium",
+                premiumPrice: "€1,99/miesiąc",
+                premiumDesc: "Odblokuj potężne funkcje dla swojego serwera",
+                community: "Dołącz do Społeczności LootGoblin!",
+                communityDesc: "Otrzymuj najnowsze aktualizacje, ekskluzywne funkcje, changelogi i łącz się z innymi graczami!",
+                joinDiscordBtn: "🚀 Dołącz do Serwera Discord",
+                addBotBtn: "➕ Dodaj Bota do Serwera"
+            },
+            "pt-BR": {
+                title: "LootGoblin",
+                subtitle: "Nunca perca um jogo grátis novamente!",
+                description: "Acompanhe jogos grátis e ofertas do Steam, Epic Games, GOG, PlayStation, Xbox, Nintendo Switch e mais. Seja notificado instantaneamente quando seus jogos da lista de desejos ficarem grátis!",
+                joinDiscord: "💬 Junte-se ao nosso Discord para atualizações, changelogs e comunidade!",
+                addBot: "🚀 Adicionar ao Discord",
+                getPremium: "💎 Obter Premium",
+                features: "Recursos Poderosos",
+                featuresDesc: "Tudo que você precisa para nunca perder um jogo grátis",
+                screenshots: "Veja LootGoblin em Ação",
+                screenshotsDesc: "Veja como o bot funciona no seu servidor Discord",
+                faq: "Perguntas Frequentes",
+                faqDesc: "Tem perguntas? Temos respostas!",
+                premium: "LootGoblin Premium",
+                premiumPrice: "€1,99/mês",
+                premiumDesc: "Desbloqueie recursos poderosos para seu servidor",
+                community: "Junte-se à Comunidade LootGoblin!",
+                communityDesc: "Obtenha as últimas atualizações, recursos exclusivos, changelogs e conecte-se com outros jogadores!",
+                joinDiscordBtn: "🚀 Entrar no Servidor Discord",
+                addBotBtn: "➕ Adicionar Bot ao Servidor"
+            },
+            ru: {
+                title: "LootGoblin",
+                subtitle: "Никогда не пропускайте бесплатную игру!",
+                description: "Отслеживайте бесплатные игры и предложения от Steam, Epic Games, GOG, PlayStation, Xbox, Nintendo Switch и других. Получайте мгновенные уведомления, когда игры из вашего списка желаний становятся бесплатными!",
+                joinDiscord: "💬 Присоединяйтесь к нашему Discord для обновлений, changelog и сообщества!",
+                addBot: "🚀 Добавить в Discord",
+                getPremium: "💎 Получить Premium",
+                features: "Мощные Функции",
+                featuresDesc: "Все, что вам нужно, чтобы никогда не пропустить бесплатную игру",
+                screenshots: "Увидеть LootGoblin в Действии",
+                screenshotsDesc: "Посмотрите, как бот работает на вашем сервере Discord",
+                faq: "Часто Задаваемые Вопросы",
+                faqDesc: "Есть вопросы? У нас есть ответы!",
+                premium: "LootGoblin Premium",
+                premiumPrice: "€1,99/месяц",
+                premiumDesc: "Разблокируйте мощные функции для вашего сервера",
+                community: "Присоединяйтесь к Сообществу LootGoblin!",
+                communityDesc: "Получайте последние обновления, эксклюзивные функции, changelog и общайтесь с другими игроками!",
+                joinDiscordBtn: "🚀 Присоединиться к Серверу Discord",
+                addBotBtn: "➕ Добавить Бота на Сервер"
+            }
+        };
+        
+        function getStoredLanguage() {
+            return localStorage.getItem('lootgoblin_lang') || 'en';
+        }
+        
+        function setStoredLanguage(lang) {
+            localStorage.setItem('lootgoblin_lang', lang);
+        }
+        
+        function applyTranslations(lang) {
+            const t = translations[lang] || translations.en;
+            
+            // Update title and subtitle
+            const titleElement = document.querySelector('h1 span.gradient-text');
+            if (titleElement) titleElement.textContent = t.title;
+            
+            const subtitleElement = document.querySelector('p.text-2xl span.gradient-text');
+            if (subtitleElement) {
+                const parent = subtitleElement.parentElement;
+                if (parent) parent.innerHTML = `Never miss a <span class="gradient-text font-bold">free game</span> again!`;
+                if (lang !== 'en') parent.textContent = t.subtitle;
+            }
+            
+            // Update description
+            const descElement = document.querySelector('p.text-lg.text-gray-400');
+            if (descElement) descElement.textContent = t.description;
+            
+            // Update buttons
+            const addBotBtn = document.querySelector('a[href*="oauth2"]');
+            if (addBotBtn && addBotBtn.textContent.includes('Add to Discord')) {
+                addBotBtn.textContent = t.addBot;
+            }
+            
+            const premiumBtn = document.querySelector('a[href*="stripe"]');
+            if (premiumBtn && premiumBtn.textContent.includes('Get Premium')) {
+                premiumBtn.textContent = t.getPremium;
+            }
+            
+            // Update section headings
+            const featuresHeading = document.querySelector('#features h2 span.gradient-text');
+            if (featuresHeading) featuresHeading.textContent = t.features;
+            
+            const screenshotsHeading = document.querySelector('#screenshots h2 span.gradient-text');
+            if (screenshotsHeading) screenshotsHeading.textContent = t.screenshots;
+            
+            const faqHeading = document.querySelector('#faq h2 span.gradient-text');
+            if (faqHeading) faqHeading.textContent = t.faq;
+            
+            const premiumHeading = document.querySelector('#premium h2 span.gradient-text');
+            if (premiumHeading) premiumHeading.textContent = t.premium;
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const lang = getStoredLanguage();
+            const langSelect = document.getElementById('lang-select');
+            if (langSelect) {
+                langSelect.value = lang;
+                langSelect.addEventListener('change', function(e) {
+                    const newLang = e.target.value;
+                    setStoredLanguage(newLang);
+                    applyTranslations(newLang);
+                });
+                applyTranslations(lang);
+            }
+        });
+    </script>
 </head>
 <body class="text-white overflow-x-hidden">
+    <div class="language-selector">
+        <select id="lang-select">
+            <option value="de">🇩🇪 Deutsch</option>
+            <option value="en">🇬🇧 English</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="pl">🇵🇱 Polski</option>
+            <option value="pt-BR">🇧🇷 Português</option>
+            <option value="ru">🇷🇺 Русский</option>
+        </select>
+    </div>
     <!-- Particles Background -->
     <div id="particles" class="fixed inset-0 pointer-events-none z-0"></div>
     
@@ -101,6 +362,9 @@
                     <a href="#screenshots" class="hover:text-green-400 transition">Screenshots</a>
                     <a href="#premium" class="hover:text-green-400 transition">Premium</a>
                     <a href="#faq" class="hover:text-green-400 transition">FAQ</a>
+                    <a href="/changelog.html" class="hover:text-green-400 transition">Changelog</a>
+                    <a href="/comparison.html" class="hover:text-green-400 transition">Free vs Premium</a>
+                    <a href="/status.html" class="hover:text-green-400 transition">Status</a>
                     <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="hover:text-green-400 transition">Support</a>
                     <div class="flex items-center space-x-3">
                         <a href="https://x.com/lootgoblinbot" target="_blank" class="hover:text-green-400 transition" title="X (Twitter)">
@@ -320,69 +584,93 @@
             <p class="text-center text-green-400 mb-16 text-lg">💡 <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="hover:underline">Join our Discord</a> to see it live!</p>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                <!-- Screenshot 1: Auto Deal Post -->
-                <div class="glass rounded-2xl overflow-hidden hover:scale-105 transition transform flex flex-col">
-                    <div class="w-full h-64 overflow-hidden bg-gray-900 flex items-center justify-center">
-                        <img src="https://i.epvpimg.com/p7HKcab.png" alt="Auto Deal Post" class="w-full h-full object-contain" loading="lazy">
+                <!-- Screenshot 1: Deal Post -->
+                <div class="glass rounded-2xl overflow-hidden hover:scale-105 transition transform">
+                    <div class="aspect-video bg-gradient-to-br from-green-400/20 to-cyan-400/20 flex items-center justify-center">
+                        <div class="text-center p-6">
+                            <div class="text-6xl mb-4">🎮</div>
+                            <p class="text-gray-300 font-semibold">Deal Post Example</p>
+                            <p class="text-gray-500 text-sm mt-2">Screenshot coming soon</p>
+                        </div>
                     </div>
-                    <div class="p-4 flex-grow">
-                        <h3 class="font-bold text-lg mb-2">🤖 Auto Deal Posts</h3>
-                        <p class="text-gray-400 text-sm">Automatic posting of free games and deals every 15 minutes</p>
-                    </div>
-                </div>
-                
-                <!-- Screenshot 2: Easy Configuration -->
-                <div class="glass rounded-2xl overflow-hidden hover:scale-105 transition transform flex flex-col">
-                    <div class="w-full h-64 overflow-hidden bg-gray-900 flex items-center justify-center">
-                        <img src="https://i.epvpimg.com/d0mFgab.png" alt="Easy Configuration" class="w-full h-full object-contain" loading="lazy">
-                    </div>
-                    <div class="p-4 flex-grow">
-                        <h3 class="font-bold text-lg mb-2">⚙️ Easy Configuration</h3>
-                        <p class="text-gray-400 text-sm">Simple setup with intuitive settings menu</p>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">Auto Deal Posts</h3>
+                        <p class="text-gray-400 text-sm">Beautiful embeds with game info, prices, and platforms</p>
                     </div>
                 </div>
                 
-                <!-- Screenshot 3: Wishlist System -->
-                <div class="glass rounded-2xl overflow-hidden hover:scale-105 transition transform flex flex-col">
-                    <div class="w-full h-64 overflow-hidden bg-gray-900 flex items-center justify-center">
-                        <img src="https://i.epvpimg.com/JvStcab.png" alt="Wishlist System" class="w-full h-full object-contain" loading="lazy">
+                <!-- Screenshot 2: Settings Menu -->
+                <div class="glass rounded-2xl overflow-hidden hover:scale-105 transition transform">
+                    <div class="aspect-video bg-gradient-to-br from-purple-400/20 to-pink-400/20 flex items-center justify-center">
+                        <div class="text-center p-6">
+                            <div class="text-6xl mb-4">⚙️</div>
+                            <p class="text-gray-300 font-semibold">Settings Menu</p>
+                            <p class="text-gray-500 text-sm mt-2">Screenshot coming soon</p>
+                        </div>
                     </div>
-                    <div class="p-4 flex-grow">
-                        <h3 class="font-bold text-lg mb-2">📋 Wishlist System</h3>
-                        <p class="text-gray-400 text-sm">Track your favorite games and get DM notifications</p>
-                    </div>
-                </div>
-                
-                <!-- Screenshot 4: Premium Settings -->
-                <div class="glass rounded-2xl overflow-hidden hover:scale-105 transition transform flex flex-col">
-                    <div class="w-full h-64 overflow-hidden bg-gray-900 flex items-center justify-center">
-                        <img src="https://i.epvpimg.com/JpSVeab.png" alt="Premium Settings" class="w-full h-full object-contain" loading="lazy">
-                    </div>
-                    <div class="p-4 flex-grow">
-                        <h3 class="font-bold text-lg mb-2">💎 Premium Settings</h3>
-                        <p class="text-gray-400 text-sm">Unlock advanced features with Premium</p>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">Easy Configuration</h3>
+                        <p class="text-gray-400 text-sm">Simple dropdown menus for all settings</p>
                     </div>
                 </div>
                 
-                <!-- Screenshot 5: All Platforms -->
-                <div class="glass rounded-2xl overflow-hidden hover:scale-105 transition transform flex flex-col">
-                    <div class="w-full h-64 overflow-hidden bg-gray-900 flex items-center justify-center">
-                        <img src="https://i.epvpimg.com/Bu6Dbab.png" alt="All Platforms" class="w-full h-full object-contain" loading="lazy">
+                <!-- Screenshot 3: Wishlist -->
+                <div class="glass rounded-2xl overflow-hidden hover:scale-105 transition transform">
+                    <div class="aspect-video bg-gradient-to-br from-blue-400/20 to-indigo-400/20 flex items-center justify-center">
+                        <div class="text-center p-6">
+                            <div class="text-6xl mb-4">📋</div>
+                            <p class="text-gray-300 font-semibold">Wishlist Feature</p>
+                            <p class="text-gray-500 text-sm mt-2">Screenshot coming soon</p>
+                        </div>
                     </div>
-                    <div class="p-4 flex-grow">
-                        <h3 class="font-bold text-lg mb-2">🎮 All Platforms</h3>
-                        <p class="text-gray-400 text-sm">Support for Steam, Epic, GOG, PlayStation, Xbox & more</p>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">Wishlist System</h3>
+                        <p class="text-gray-400 text-sm">Track games and get DM notifications</p>
                     </div>
                 </div>
                 
-                <!-- Screenshot 6: Live Statistics -->
-                <div class="glass rounded-2xl overflow-hidden hover:scale-105 transition transform flex flex-col">
-                    <div class="w-full h-64 overflow-hidden bg-gray-900 flex items-center justify-center">
-                        <img src="https://i.epvpimg.com/zR41bab.png" alt="Live Statistics" class="w-full h-full object-contain" loading="lazy">
+                <!-- Screenshot 4: Premium Features -->
+                <div class="glass rounded-2xl overflow-hidden hover:scale-105 transition transform">
+                    <div class="aspect-video bg-gradient-to-br from-yellow-400/20 to-orange-400/20 flex items-center justify-center">
+                        <div class="text-center p-6">
+                            <div class="text-6xl mb-4">💎</div>
+                            <p class="text-gray-300 font-semibold">Premium Features</p>
+                            <p class="text-gray-500 text-sm mt-2">Screenshot coming soon</p>
+                        </div>
                     </div>
-                    <div class="p-4 flex-grow">
-                        <h3 class="font-bold text-lg mb-2">📊 Live Statistics</h3>
-                        <p class="text-gray-400 text-sm">Real-time bot statistics and server information</p>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">Premium Settings</h3>
+                        <p class="text-gray-400 text-sm">Custom branding, auto-threads, and more</p>
+                    </div>
+                </div>
+                
+                <!-- Screenshot 5: Multi-Platform -->
+                <div class="glass rounded-2xl overflow-hidden hover:scale-105 transition transform">
+                    <div class="aspect-video bg-gradient-to-br from-cyan-400/20 to-teal-400/20 flex items-center justify-center">
+                        <div class="text-center p-6">
+                            <div class="text-6xl mb-4">🌐</div>
+                            <p class="text-gray-300 font-semibold">Multi-Platform</p>
+                            <p class="text-gray-500 text-sm mt-2">Screenshot coming soon</p>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">All Platforms</h3>
+                        <p class="text-gray-400 text-sm">Steam, Epic, GOG, PlayStation, Xbox & more</p>
+                    </div>
+                </div>
+                
+                <!-- Screenshot 6: Statistics -->
+                <div class="glass rounded-2xl overflow-hidden hover:scale-105 transition transform">
+                    <div class="aspect-video bg-gradient-to-br from-red-400/20 to-pink-400/20 flex items-center justify-center">
+                        <div class="text-center p-6">
+                            <div class="text-6xl mb-4">📊</div>
+                            <p class="text-gray-300 font-semibold">Bot Statistics</p>
+                            <p class="text-gray-500 text-sm mt-2">Screenshot coming soon</p>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">Live Statistics</h3>
+                        <p class="text-gray-400 text-sm">See servers, deals posted, and more</p>
                     </div>
                 </div>
             </div>
@@ -556,6 +844,9 @@
             <div class="flex flex-wrap justify-center gap-4 mb-4">
                 <a href="/terms.html" class="text-gray-400 hover:text-green-400 transition">Terms</a>
                 <a href="/privacy.html" class="text-gray-400 hover:text-green-400 transition">Privacy</a>
+                <a href="/changelog.html" class="text-gray-400 hover:text-green-400 transition">Changelog</a>
+                <a href="/comparison.html" class="text-gray-400 hover:text-green-400 transition">Free vs Premium</a>
+                <a href="/status.html" class="text-gray-400 hover:text-green-400 transition">Status</a>
                 <a href="/impressum.html" class="text-gray-400 hover:text-green-400 transition">Legal Notice</a>
                 <a href="/licenses.html" class="text-gray-400 hover:text-green-400 transition">Licenses</a>
                 <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="text-gray-400 hover:text-green-400 transition">Support Server</a>

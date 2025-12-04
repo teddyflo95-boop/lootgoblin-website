@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status - LootGoblin</title>
+    <meta name="description" content="LootGoblin Bot Status and Statistics">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.epvpimg.com/RAFObab.jpg">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0f3460 100%);
+            min-height: 100vh;
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="text-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <a href="/">
+                        <img src="https://i.epvpimg.com/RAFObab.jpg" alt="LootGoblin" class="w-10 h-10 rounded-full">
+                    </a>
+                    <a href="/" class="text-xl font-bold gradient-text">LootGoblin</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/" class="hover:text-green-400 transition">← Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Content -->
+    <section class="pt-32 pb-20 px-6">
+        <div class="container mx-auto max-w-5xl">
+            <h1 class="text-5xl font-black mb-8 text-center">
+                <span class="gradient-text">📊 Bot Status</span>
+            </h1>
+            
+            <!-- Bot Status -->
+            <div class="glass rounded-2xl p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-4 gradient-text">Bot Status</h2>
+                <div id="bot-status" class="inline-block px-6 py-3 rounded-full font-bold bg-green-400/20 text-green-400 border-2 border-green-400">
+                    🟢 Checking...
+                </div>
+            </div>
+            
+            <!-- Statistics -->
+            <div class="glass rounded-2xl p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6 gradient-text">Statistics</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div id="server-count" class="text-4xl font-bold gradient-text mb-2">0</div>
+                        <div class="text-gray-400">Total Servers</div>
+                    </div>
+                    <div class="text-center">
+                        <div id="configured-count" class="text-4xl font-bold gradient-text mb-2">0</div>
+                        <div class="text-gray-400">Configured Servers</div>
+                    </div>
+                    <div class="text-center">
+                        <div id="premium-count" class="text-4xl font-bold gradient-text mb-2">0</div>
+                        <div class="text-gray-400">Premium Servers</div>
+                    </div>
+                    <div class="text-center">
+                        <div id="deals-count" class="text-4xl font-bold gradient-text mb-2">0</div>
+                        <div class="text-gray-400">Deals Posted</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- API Status -->
+            <div class="glass rounded-2xl p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-4 gradient-text">API Status</h2>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span>GamerPower API</span>
+                        <span class="text-green-400 font-bold">✅ Operational</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span>CheapShark API</span>
+                        <span class="text-green-400 font-bold">✅ Operational</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span>Steam Store API</span>
+                        <span class="text-green-400 font-bold">✅ Operational</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span>DuckDuckGo Image Search</span>
+                        <span class="text-green-400 font-bold">✅ Operational</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <a href="/" class="inline-block glass px-8 py-3 rounded-full font-bold hover:scale-105 transition transform border-2 border-green-400">
+                    ← Back to Home
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        async function fetchStatus() {
+            try {
+                const response = await fetch('https://loot-goblin-production.up.railway.app/api/stats', {
+                    method: 'GET',
+                    headers: { 'Accept': 'application/json' }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('bot-status').innerHTML = '🟢 Online';
+                    document.getElementById('bot-status').className = 'inline-block px-6 py-3 rounded-full font-bold bg-green-400/20 text-green-400 border-2 border-green-400';
+                    
+                    const serverCount = data?.servers?.total || 0;
+                    const configuredCount = data?.servers?.configured || 0;
+                    const premiumCount = data?.servers?.premium || 0;
+                    const dealsCount = data?.stats?.deals_posted || 0;
+                    
+                    animateValue('server-count', 0, serverCount, 2000);
+                    animateValue('configured-count', 0, configuredCount, 2000);
+                    animateValue('premium-count', 0, premiumCount, 2000);
+                    animateValue('deals-count', 0, dealsCount, 2000);
+                } else {
+                    throw new Error('API not available');
+                }
+            } catch (error) {
+                document.getElementById('bot-status').innerHTML = '🔴 Offline';
+                document.getElementById('bot-status').className = 'inline-block px-6 py-3 rounded-full font-bold bg-red-400/20 text-red-400 border-2 border-red-400';
+            }
+        }
+        
+        function animateValue(id, start, end, duration) {
+            const element = document.getElementById(id);
+            const range = end - start;
+            const increment = range / (duration / 16);
+            let current = start;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+                    element.textContent = end.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString();
+                }
+            }, 16);
+        }
+        
+        fetchStatus();
+        setInterval(fetchStatus, 30000); // Update every 30 seconds
+    </script>
+</body>
+</html>
+

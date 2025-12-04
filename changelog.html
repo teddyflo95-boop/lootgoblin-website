@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changelog - LootGoblin</title>
+    <meta name="description" content="LootGoblin Discord Bot Changelog - See what's new!">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.epvpimg.com/RAFObab.jpg">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0f3460 100%);
+            min-height: 100vh;
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="text-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <a href="/">
+                        <img src="https://i.epvpimg.com/RAFObab.jpg" alt="LootGoblin" class="w-10 h-10 rounded-full">
+                    </a>
+                    <a href="/" class="text-xl font-bold gradient-text">LootGoblin</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/" class="hover:text-green-400 transition">← Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Content -->
+    <section class="pt-32 pb-20 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <h1 class="text-5xl font-black mb-8 text-center">
+                <span class="gradient-text">📋 Changelog</span>
+            </h1>
+            
+            <!-- Version 1.3.0 -->
+            <div class="glass rounded-2xl p-8 mb-8">
+                <h2 class="text-3xl font-bold mb-6 gradient-text">Version 1.3.0</h2>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold mb-3 text-green-400">✨ Added</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-300 ml-4">
+                        <li>Automatic image search for deals (DuckDuckGo + Steam Store API)</li>
+                        <li>Improved image search with multiple query variants per game</li>
+                        <li>Complete backup script for project backup</li>
+                        <li>MoviePy license information added</li>
+                        <li>Helper function for GameCheckerCog search (code optimization)</li>
+                    </ul>
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold mb-3 text-yellow-400">🐛 Fixed</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-300 ml-4">
+                        <li>"Last Games" feature now correctly posts ephemeral for regular users</li>
+                        <li>Dropdowns can now be clicked repeatedly without prior selection</li>
+                        <li>Indentation error in views.py fixed</li>
+                        <li>All hardcoded strings in embeds are now localized</li>
+                        <li>ToS and Privacy Policy: Year corrected to 2025</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-3 text-blue-400">🔧 Changed</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-300 ml-4">
+                        <li>Code cleanup: Debug print statements removed</li>
+                        <li>Code duplication reduced (GameCheckerCog search refactored)</li>
+                        <li>Unused imports removed</li>
+                        <li>ToS and Privacy Policy updated (new features, external APIs documented)</li>
+                        <li>GitHub repository cleaned up (sensitive files removed, .gitignore extended)</li>
+                        <li>Image search now uses Steam Store API for Steam games</li>
+                        <li>Improved title cleaning for image search (platform prefixes removed)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Version 1.1.0 -->
+            <div class="glass rounded-2xl p-8 mb-8">
+                <h2 class="text-3xl font-bold mb-6 gradient-text">Version 1.1.0</h2>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold mb-3 text-green-400">✨ Added</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-300 ml-4">
+                        <li>Cloudflare Email Routing Integration</li>
+                        <li>Email-zu-Discord-Ticket System</li>
+                        <li>Automatische Ticket-Erstellung für Support-Emails</li>
+                        <li>Email-Threading (Antworten im gleichen Ticket-Channel)</li>
+                        <li>Bot-Restart-Endpoint über API</li>
+                        <li>GitHub Actions für automatischen Bot-Restart</li>
+                        <li>File-Watcher für automatischen Restart in Entwicklungsumgebung</li>
+                        <li>Video-Generierung mit Veo 3.1 (Google Gemini API)</li>
+                        <li>Email-Status-Endpoint für Monitoring</li>
+                    </ul>
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold mb-3 text-yellow-400">🐛 Fixed</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-300 ml-4">
+                        <li>Bot-Restart funktioniert jetzt korrekt über Dropdown</li>
+                        <li>GameCheckerCog wird jetzt korrekt gefunden</li>
+                        <li>Indentation-Fehler in game_checker.py behoben</li>
+                        <li>Veo API Parameter korrigiert</li>
+                        <li>Email-Inhalt-Extraktion verbessert</li>
+                        <li>Doppelte Embeds bei Email-Benachrichtigungen entfernt</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-3 text-blue-400">🔧 Changed</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-300 ml-4">
+                        <li>Bot-Restart verwendet jetzt `os._exit(1)` für vollständiges Redeploy</li>
+                        <li>Email-Benachrichtigungen zeigen nur noch Betreff (kein Inhalt mehr)</li>
+                        <li>Video-Generierung verwendet ausschließlich Veo 3.1 (MoviePy entfernt)</li>
+                        <li>Email-Routing über Cloudflare Workers statt direkter Weiterleitung</li>
+                        <li>Discord-Bestätigung bei neuen Tickets optimiert</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="/" class="inline-block glass px-8 py-3 rounded-full font-bold hover:scale-105 transition transform border-2 border-green-400">
+                    ← Back to Home
+                </a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
