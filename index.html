@@ -83,39 +83,6 @@
             100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
         }
         
-        .language-selector {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-        
-        .language-selector select {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            padding: 10px 15px;
-            color: #fff;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .language-selector select:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: #00ff88;
-        }
-        
-        @media (max-width: 768px) {
-            .language-selector {
-                top: 80px;
-                right: 10px;
-            }
-            .language-selector select {
-                font-size: 0.8rem;
-                padding: 8px 12px;
-            }
-        }
     </style>
     <script>
         const translations = {
@@ -319,33 +286,33 @@
             if (premiumHeading) premiumHeading.textContent = t.premium;
         }
         
+        function changeLanguage(lang) {
+            setStoredLanguage(lang);
+            applyTranslations(lang);
+            
+            // Update active button
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.remove('border-2', 'border-green-400/50');
+            });
+            const activeBtn = document.querySelector(`.language-btn[data-lang="${lang}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('border-2', 'border-green-400/50');
+            }
+        }
+        
         document.addEventListener('DOMContentLoaded', function() {
             const lang = getStoredLanguage();
-            const langSelect = document.getElementById('lang-select');
-            if (langSelect) {
-                langSelect.value = lang;
-                langSelect.addEventListener('change', function(e) {
-                    const newLang = e.target.value;
-                    setStoredLanguage(newLang);
-                    applyTranslations(newLang);
-                });
-                applyTranslations(lang);
+            applyTranslations(lang);
+            
+            // Highlight active language button
+            const activeBtn = document.querySelector(`.language-btn[data-lang="${lang}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('border-2', 'border-green-400/50');
             }
         });
     </script>
 </head>
 <body class="text-white overflow-x-hidden">
-    <div class="language-selector">
-        <select id="lang-select">
-            <option value="de">🇩🇪 Deutsch</option>
-            <option value="en">🇬🇧 English</option>
-            <option value="es">🇪🇸 Español</option>
-            <option value="fr">🇫🇷 Français</option>
-            <option value="pl">🇵🇱 Polski</option>
-            <option value="pt-BR">🇧🇷 Português</option>
-            <option value="ru">🇷🇺 Русский</option>
-        </select>
-    </div>
     <!-- Particles Background -->
     <div id="particles" class="fixed inset-0 pointer-events-none z-0"></div>
     
@@ -539,37 +506,37 @@
             <!-- Supported Languages -->
             <div class="mt-16 text-center">
                 <p class="text-gray-400 mb-6 text-lg">🌍 Available in multiple languages</p>
-                <div class="flex flex-wrap justify-center items-center gap-3">
-                    <div class="glass rounded-xl px-4 py-2 flex items-center space-x-2">
+                <div class="flex flex-wrap justify-center items-center gap-3 mb-4">
+                    <button onclick="changeLanguage('de')" class="glass rounded-xl px-4 py-2 flex items-center space-x-2 hover:scale-105 transition transform cursor-pointer language-btn" data-lang="de">
                         <span class="text-xl">🇩🇪</span>
                         <span class="font-semibold">Deutsch</span>
-                    </div>
-                    <div class="glass rounded-xl px-4 py-2 flex items-center space-x-2">
+                    </button>
+                    <button onclick="changeLanguage('en')" class="glass rounded-xl px-4 py-2 flex items-center space-x-2 hover:scale-105 transition transform cursor-pointer language-btn border-2 border-green-400/50" data-lang="en">
                         <span class="text-xl">🇬🇧</span>
                         <span class="font-semibold">English</span>
-                    </div>
-                    <div class="glass rounded-xl px-4 py-2 flex items-center space-x-2">
+                    </button>
+                    <button onclick="changeLanguage('es')" class="glass rounded-xl px-4 py-2 flex items-center space-x-2 hover:scale-105 transition transform cursor-pointer language-btn" data-lang="es">
                         <span class="text-xl">🇪🇸</span>
                         <span class="font-semibold">Español</span>
-                    </div>
-                    <div class="glass rounded-xl px-4 py-2 flex items-center space-x-2">
+                    </button>
+                    <button onclick="changeLanguage('fr')" class="glass rounded-xl px-4 py-2 flex items-center space-x-2 hover:scale-105 transition transform cursor-pointer language-btn" data-lang="fr">
                         <span class="text-xl">🇫🇷</span>
                         <span class="font-semibold">Français</span>
-                    </div>
-                    <div class="glass rounded-xl px-4 py-2 flex items-center space-x-2">
+                    </button>
+                    <button onclick="changeLanguage('pl')" class="glass rounded-xl px-4 py-2 flex items-center space-x-2 hover:scale-105 transition transform cursor-pointer language-btn" data-lang="pl">
                         <span class="text-xl">🇵🇱</span>
                         <span class="font-semibold">Polski</span>
-                    </div>
-                    <div class="glass rounded-xl px-4 py-2 flex items-center space-x-2">
+                    </button>
+                    <button onclick="changeLanguage('pt-BR')" class="glass rounded-xl px-4 py-2 flex items-center space-x-2 hover:scale-105 transition transform cursor-pointer language-btn" data-lang="pt-BR">
                         <span class="text-xl">🇧🇷</span>
                         <span class="font-semibold">Português</span>
-                    </div>
-                    <div class="glass rounded-xl px-4 py-2 flex items-center space-x-2">
+                    </button>
+                    <button onclick="changeLanguage('ru')" class="glass rounded-xl px-4 py-2 flex items-center space-x-2 hover:scale-105 transition transform cursor-pointer language-btn" data-lang="ru">
                         <span class="text-xl">🇷🇺</span>
                         <span class="font-semibold">Русский</span>
-                    </div>
+                    </button>
                 </div>
-                <p class="text-gray-500 text-sm mt-4">Change your language anytime in /settings</p>
+                <p class="text-gray-500 text-sm mt-4">Click a language above to change the website language</p>
             </div>
         </div>
     </section>
