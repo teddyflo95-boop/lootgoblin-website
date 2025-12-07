@@ -23,21 +23,45 @@
         }
         
         body {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0f3460 100%);
+            background: #0a0a0f;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(251, 146, 60, 0.1) 0%, transparent 50%);
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
         
         .glass {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(20, 20, 30, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 2px solid rgba(139, 92, 246, 0.2);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass:hover {
+            border-color: rgba(236, 72, 153, 0.4);
+            box-shadow: 
+                0 12px 40px rgba(139, 92, 246, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
         }
         
         .gradient-text {
-            background: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+            background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #f97316 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            background-size: 200% 200%;
+            animation: gradient-shift 5s ease infinite;
+        }
+        
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
         
         .language-sidebar {
@@ -228,8 +252,8 @@
                     <a href="/" class="text-xl font-bold gradient-text">LootGoblin</a>
                 </div>
                 <div class="hidden md:flex items-center space-x-6">
-                    <a href="/" class="hover:text-green-400 transition">Home</a>
-                    <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="hover:text-green-400 transition">Support</a>
+                    <a href="/" class="hover:text-purple-400 transition">Home</a>
+                    <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="hover:text-purple-400 transition">Support</a>
                 </div>
             </div>
         </div>
@@ -246,7 +270,7 @@
                 
                 <div class="prose prose-invert max-w-none space-y-8">
                     <div>
-                        <h2 class="text-3xl font-bold mb-4 text-green-400">1. Privacy at a Glance</h2>
+                        <h2 class="text-3xl font-bold mb-4 text-purple-400">1. Privacy at a Glance</h2>
                         <h3 class="text-2xl font-semibold mb-3 text-cyan-400">General Information</h3>
                         <p class="text-gray-300 mb-4">The following information provides a simple overview of what happens to your personal data when you visit this website or use the LootGoblin Bot. Personal data is any data with which you can be personally identified.</p>
                         
@@ -254,12 +278,12 @@
                         <p class="text-gray-300 mb-2">The responsible party for data processing on this website is:</p>
                         <p class="text-gray-300 mb-2"><strong>Florian Janke</strong> (private, non-commercial side activity)</p>
                         <p class="text-gray-300 mb-2"><strong>Germany</strong></p>
-                        <p class="text-gray-300 mb-4"><strong>Email:</strong> <a href="mailto:contact@loot-goblin.xyz" class="text-green-400 hover:underline">contact@loot-goblin.xyz</a></p>
+                        <p class="text-gray-300 mb-4"><strong>Email:</strong> <a href="mailto:contact@loot-goblin.xyz" class="text-purple-400 hover:underline">contact@loot-goblin.xyz</a></p>
                         <p class="text-gray-300">The responsible party is the natural or legal person who alone or jointly with others decides on the purposes and means of processing personal data (e.g., names, email addresses, etc.).</p>
                     </div>
                     
                     <div>
-                        <h2 class="text-3xl font-bold mb-4 text-green-400">2. Data Collection on this Website / in the Bot</h2>
+                        <h2 class="text-3xl font-bold mb-4 text-purple-400">2. Data Collection on this Website / in the Bot</h2>
                         <h3 class="text-2xl font-semibold mb-3 text-cyan-400">What data is processed?</h3>
                         <p class="text-gray-300 mb-4">The LootGoblin Bot processes the following personal data:</p>
                         
@@ -329,7 +353,7 @@
                     </div>
                     
                     <div>
-                        <h2 class="text-3xl font-bold mb-4 text-green-400">3. Your Rights</h2>
+                        <h2 class="text-3xl font-bold mb-4 text-purple-400">3. Your Rights</h2>
                         <p class="text-gray-300 mb-4">You have the following rights:</p>
                         <ul class="text-gray-300 mb-4 space-y-3 list-disc list-inside ml-4">
                             <li><strong>Right of Access (Art. 15 GDPR):</strong> You have the right to obtain information about your stored personal data.</li>
@@ -343,14 +367,14 @@
                     </div>
                     
                     <div>
-                        <h2 class="text-3xl font-bold mb-4 text-green-400">4. Contact for Privacy Inquiries</h2>
+                        <h2 class="text-3xl font-bold mb-4 text-purple-400">4. Contact for Privacy Inquiries</h2>
                         <p class="text-gray-300 mb-2">If you have questions about data protection, you can contact us at any time:</p>
-                        <p class="text-gray-300 mb-2"><strong>Email:</strong> <a href="mailto:contact@loot-goblin.xyz" class="text-green-400 hover:underline">contact@loot-goblin.xyz</a></p>
-                        <p class="text-gray-300"><strong>Discord:</strong> <a href="https://discord.gg/JqYBxTuk4T" target="_blank" class="text-green-400 hover:underline">https://discord.gg/JqYBxTuk4T</a></p>
+                        <p class="text-gray-300 mb-2"><strong>Email:</strong> <a href="mailto:contact@loot-goblin.xyz" class="text-purple-400 hover:underline">contact@loot-goblin.xyz</a></p>
+                        <p class="text-gray-300"><strong>Discord:</strong> <a href="https://discord.gg/JqYBxTuk4T" target="_blank" class="text-purple-400 hover:underline">https://discord.gg/JqYBxTuk4T</a></p>
                     </div>
                     
                     <div>
-                        <h2 class="text-3xl font-bold mb-4 text-green-400">5. Data Deletion</h2>
+                        <h2 class="text-3xl font-bold mb-4 text-purple-400">5. Data Deletion</h2>
                         <p class="text-gray-300 mb-3">You can request the deletion of your data at any time:</p>
                         <ol class="text-gray-300 mb-4 space-y-2 list-decimal list-inside ml-4">
                             <li><strong>Delete Server Settings:</strong> Remove the bot from the server</li>
@@ -360,23 +384,23 @@
                     </div>
                     
                     <div>
-                        <h2 class="text-3xl font-bold mb-4 text-green-400">6. Data Sharing</h2>
+                        <h2 class="text-3xl font-bold mb-4 text-purple-400">6. Data Sharing</h2>
                         <p class="text-gray-300 mb-3">Your data is <strong>not</strong> shared with third parties, except:</p>
                         <ul class="text-gray-300 mb-4 space-y-2 list-disc list-inside ml-4">
-                            <li><strong>Stripe:</strong> For payment processing (see <a href="https://stripe.com/privacy" target="_blank" class="text-green-400 hover:underline">Stripe Privacy Policy</a>)</li>
-                            <li><strong>Discord:</strong> For bot operation (see <a href="https://discord.com/privacy" target="_blank" class="text-green-400 hover:underline">Discord Privacy Policy</a>)</li>
-                            <li><strong>Top.gg:</strong> For vote verification (see <a href="https://top.gg/privacy" target="_blank" class="text-green-400 hover:underline">Top.gg Privacy Policy</a>)</li>
-                            <li><strong>Hosting Provider:</strong> Railway, for server hosting (see <a href="https://railway.app/legal/privacy" target="_blank" class="text-green-400 hover:underline">Railway Privacy Policy</a>)</li>
+                            <li><strong>Stripe:</strong> For payment processing (see <a href="https://stripe.com/privacy" target="_blank" class="text-purple-400 hover:underline">Stripe Privacy Policy</a>)</li>
+                            <li><strong>Discord:</strong> For bot operation (see <a href="https://discord.com/privacy" target="_blank" class="text-purple-400 hover:underline">Discord Privacy Policy</a>)</li>
+                            <li><strong>Top.gg:</strong> For vote verification (see <a href="https://top.gg/privacy" target="_blank" class="text-purple-400 hover:underline">Top.gg Privacy Policy</a>)</li>
+                            <li><strong>Hosting Provider:</strong> Railway, for server hosting (see <a href="https://railway.app/legal/privacy" target="_blank" class="text-purple-400 hover:underline">Railway Privacy Policy</a>)</li>
                         </ul>
                     </div>
                     
                     <div>
-                        <h2 class="text-3xl font-bold mb-4 text-green-400">7. Cookies / Tracking</h2>
+                        <h2 class="text-3xl font-bold mb-4 text-purple-400">7. Cookies / Tracking</h2>
                         <p class="text-gray-300">The bot uses <strong>no cookies</strong> and <strong>no tracking</strong>.</p>
                     </div>
                     
                     <div>
-                        <h2 class="text-3xl font-bold mb-4 text-green-400">8. Changes to this Privacy Policy</h2>
+                        <h2 class="text-3xl font-bold mb-4 text-purple-400">8. Changes to this Privacy Policy</h2>
                         <p class="text-gray-300">We reserve the right to adjust this privacy policy so that it always complies with current legal requirements.</p>
                     </div>
                 </div>
@@ -395,26 +419,26 @@
             
             <!-- Social Media Links -->
             <div class="flex justify-center items-center gap-4 mb-6">
-                <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="text-gray-400 hover:text-green-400 transition transform hover:scale-110" title="Join our Discord Server">
+                <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="text-gray-400 hover:text-purple-400 transition transform hover:scale-110" title="Join our Discord Server">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.007-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
                 </a>
-                <a href="https://x.com/lootgoblinbot" target="_blank" class="text-gray-400 hover:text-green-400 transition transform hover:scale-110" title="Follow us on X (Twitter)">
+                <a href="https://x.com/lootgoblinbot" target="_blank" class="text-gray-400 hover:text-purple-400 transition transform hover:scale-110" title="Follow us on X (Twitter)">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                 </a>
-                <a href="https://www.instagram.com/lootgoblinbot/" target="_blank" class="text-gray-400 hover:text-green-400 transition transform hover:scale-110" title="Follow us on Instagram">
+                <a href="https://www.instagram.com/lootgoblinbot/" target="_blank" class="text-gray-400 hover:text-purple-400 transition transform hover:scale-110" title="Follow us on Instagram">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                 </a>
-                <a href="https://www.tiktok.com/@lootgoblinbot" target="_blank" class="text-gray-400 hover:text-green-400 transition transform hover:scale-110" title="Follow us on TikTok">
+                <a href="https://www.tiktok.com/@lootgoblinbot" target="_blank" class="text-gray-400 hover:text-purple-400 transition transform hover:scale-110" title="Follow us on TikTok">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
                 </a>
             </div>
             
             <div class="flex flex-wrap justify-center gap-4 mb-4">
-                <a href="/" class="text-gray-400 hover:text-green-400 transition">Home</a>
-                <a href="/terms.html" class="text-gray-400 hover:text-green-400 transition">Terms</a>
-                <a href="/privacy.html" class="text-gray-400 hover:text-green-400 transition">Privacy</a>
-                <a href="/impressum.html" class="text-gray-400 hover:text-green-400 transition">Legal Notice</a>
-                <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="text-gray-400 hover:text-green-400 transition">Support Server</a>
+                <a href="/" class="text-gray-400 hover:text-purple-400 transition">Home</a>
+                <a href="/terms.html" class="text-gray-400 hover:text-purple-400 transition">Terms</a>
+                <a href="/privacy.html" class="text-gray-400 hover:text-purple-400 transition">Privacy</a>
+                <a href="/impressum.html" class="text-gray-400 hover:text-purple-400 transition">Legal Notice</a>
+                <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="text-gray-400 hover:text-purple-400 transition">Support Server</a>
             </div>
             <p class="text-gray-500 text-sm text-center">© 2025 LootGoblin. All rights reserved.</p>
         </div>

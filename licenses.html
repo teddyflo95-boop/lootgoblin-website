@@ -23,21 +23,70 @@
         }
         
         body {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0f3460 100%);
+            background: #0a0a0f;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(251, 146, 60, 0.1) 0%, transparent 50%);
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(139, 92, 246, 0.03) 2px,
+                    rgba(139, 92, 246, 0.03) 4px
+                );
+            pointer-events: none;
+            z-index: 0;
         }
         
         .glass {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(20, 20, 30, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 2px solid rgba(139, 92, 246, 0.2);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass:hover {
+            border-color: rgba(236, 72, 153, 0.4);
+            box-shadow: 
+                0 12px 40px rgba(139, 92, 246, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
         }
         
         .gradient-text {
-            background: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+            background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #f97316 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            background-size: 200% 200%;
+            animation: gradient-shift 5s ease infinite;
+        }
+        
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .glow {
+            box-shadow: 
+                0 0 30px rgba(139, 92, 246, 0.5),
+                0 0 60px rgba(236, 72, 153, 0.3);
         }
     </style>
 </head>
@@ -53,8 +102,8 @@
                     <a href="/" class="text-xl font-bold gradient-text">LootGoblin</a>
                 </div>
                 <div class="hidden md:flex items-center space-x-6">
-                    <a href="/" class="hover:text-green-400 transition">Home</a>
-                    <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="hover:text-green-400 transition">Support</a>
+                    <a href="/" class="hover:text-purple-400 transition">Home</a>
+                    <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="hover:text-purple-400 transition">Support</a>
                 </div>
             </div>
         </div>
