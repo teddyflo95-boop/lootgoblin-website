@@ -37,50 +37,118 @@
         }
         
         body {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0f3460 100%);
+            background: #0a0a0f;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(251, 146, 60, 0.1) 0%, transparent 50%);
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(139, 92, 246, 0.03) 2px,
+                    rgba(139, 92, 246, 0.03) 4px
+                );
+            pointer-events: none;
+            z-index: 0;
         }
         
         .glass {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(20, 20, 30, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 2px solid rgba(139, 92, 246, 0.2);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass:hover {
+            border-color: rgba(236, 72, 153, 0.4);
+            box-shadow: 
+                0 12px 40px rgba(139, 92, 246, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
         }
         
         .gradient-text {
-            background: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+            background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #f97316 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            background-size: 200% 200%;
+            animation: gradient-shift 5s ease infinite;
+        }
+        
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
         
         .glow {
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+            box-shadow: 
+                0 0 30px rgba(139, 92, 246, 0.5),
+                0 0 60px rgba(236, 72, 153, 0.3);
         }
         
         .animate-float {
-            animation: float 6s ease-in-out infinite;
+            animation: float 8s ease-in-out infinite;
         }
         
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg); 
+            }
+            25% { 
+                transform: translateY(-15px) rotate(2deg); 
+            }
+            50% { 
+                transform: translateY(-25px) rotate(0deg); 
+            }
+            75% { 
+                transform: translateY(-15px) rotate(-2deg); 
+            }
         }
         
         .particle {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(0, 255, 136, 0.5);
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.8), rgba(236, 72, 153, 0.4));
             border-radius: 50%;
-            animation: particle-float 10s infinite;
+            animation: particle-float 12s infinite;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
         }
         
         @keyframes particle-float {
-            0% { transform: translateY(0) translateX(0); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+            0% { 
+                transform: translateY(100vh) translateX(0) scale(0); 
+                opacity: 0; 
+            }
+            10% { 
+                opacity: 1; 
+                transform: translateY(90vh) translateX(20px) scale(1);
+            }
+            90% { 
+                opacity: 1; 
+                transform: translateY(10vh) translateX(-30px) scale(1);
+            }
+            100% { 
+                transform: translateY(-10vh) translateX(-50px) scale(0); 
+                opacity: 0; 
+            }
         }
         
         .language-sidebar {
@@ -91,54 +159,153 @@
             z-index: 100;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
         }
         
         .language-item {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 10px 14px;
+            background: rgba(20, 20, 30, 0.8);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 16px;
+            padding: 12px 16px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            min-width: 140px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            min-width: 150px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .language-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .language-item:hover::before {
+            left: 100%;
         }
         
         .language-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(0, 255, 136, 0.5);
-            transform: translateX(-5px);
+            background: rgba(30, 30, 45, 0.9);
+            border-color: rgba(236, 72, 153, 0.5);
+            transform: translateX(-8px) scale(1.05);
+            box-shadow: 
+                0 8px 24px rgba(139, 92, 246, 0.4),
+                0 0 0 1px rgba(236, 72, 153, 0.2);
         }
         
         .language-item.active {
-            background: rgba(0, 255, 136, 0.15);
-            border-color: #00ff88;
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.15));
+            border-color: #8b5cf6;
+            box-shadow: 
+                0 0 20px rgba(139, 92, 246, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
         
         .language-item .flag {
             font-size: 1.5rem;
             flex-shrink: 0;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
         }
         
         .language-item .name {
             font-size: 0.9rem;
             font-weight: 500;
             color: rgba(255, 255, 255, 0.9);
+            transition: color 0.3s;
         }
         
         .language-item.active .name {
-            color: #00ff88;
+            color: #ec4899;
             font-weight: 600;
+        }
+        
+        /* Neue 3D-Effekte für Cards */
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-3d:hover {
+            transform: perspective(1000px) rotateY(5deg) rotateX(-5deg) translateZ(20px);
+        }
+        
+        /* Asymmetrische Shapes */
+        .shape-blob {
+            position: absolute;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
+            animation: blob-animate 20s ease-in-out infinite;
+            filter: blur(40px);
+        }
+        
+        @keyframes blob-animate {
+            0%, 100% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+                transform: translate(50px, -50px) scale(1.1);
+            }
+            50% {
+                border-radius: 30% 70% 70% 30% / 70% 30% 30% 70%;
+                transform: translate(-30px, 30px) scale(0.9);
+            }
+            75% {
+                border-radius: 70% 30% 30% 70% / 30% 70% 70% 30%;
+                transform: translate(30px, 50px) scale(1.05);
+            }
+        }
+        
+        /* Neon-Glow Effekte */
+        .neon-border {
+            position: relative;
+        }
+        
+        .neon-border::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: inherit;
+            padding: 2px;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899, #f97316);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .neon-border:hover::after {
+            opacity: 1;
+            animation: neon-pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes neon-pulse {
+            0%, 100% { 
+                filter: brightness(1) drop-shadow(0 0 10px rgba(139, 92, 246, 0.5));
+            }
+            50% { 
+                filter: brightness(1.3) drop-shadow(0 0 20px rgba(236, 72, 153, 0.8));
+            }
         }
         
         @media (max-width: 1024px) {
             .language-sidebar {
                 display: none;
+            }
+            
+            .card-3d:hover {
+                transform: none;
             }
         }
     </style>
@@ -817,7 +984,7 @@
             if (descElement) descElement.textContent = t.description;
             
             // Update join Discord text
-            const joinDiscordText = document.querySelector('p.text-green-400');
+            const joinDiscordText = document.querySelector('p.text-purple-400');
             if (joinDiscordText && (joinDiscordText.textContent.includes('Join our Discord') || joinDiscordText.textContent.includes('Tritt unserem Discord') || joinDiscordText.textContent.includes('Únete'))) {
                 if (lang === 'en') {
                     joinDiscordText.innerHTML = `💬 <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="hover:underline font-semibold">${t.joinDiscord}</a>!`;
@@ -913,7 +1080,7 @@
                 } else if (text.includes('Get alerts exactly when') || text.includes('Erhalte Benachrichtigungen genau') || text.includes('Recibe alertas exactamente') || text.includes('Recevez des alertes exactement') || text.includes('Otrzymuj powiadomienia dokładnie') || text.includes('Receba alertas exatamente') || text.includes('Получайте уведомления точно')) {
                     desc.textContent = t.smartNotificationsDesc || text;
                 } else if (text.includes('Join Discord to discover') || text.includes('Tritt Discord bei') || text.includes('Únete a Discord') || text.includes('Rejoignez Discord') || text.includes('Dołącz do Discorda') || text.includes('Junte-se ao Discord') || text.includes('Присоединяйтесь к Discord')) {
-                    desc.innerHTML = `<a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="text-green-400 hover:underline">${t.andMuchMoreDesc || text}</a>`;
+                    desc.innerHTML = `<a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="text-purple-400 hover:underline">${t.andMuchMoreDesc || text}</a>`;
                 }
             });
             
@@ -958,13 +1125,13 @@
             faqAnswers.forEach(answer => {
                 const text = answer.textContent.trim();
                 if (text.includes('Quick setup: Invite') || text.includes('Schnelle Einrichtung') || text.includes('Configuración rápida') || text.includes('Configuration rapide') || text.includes('Szybka konfiguracja') || text.includes('Configuração rápida') || text.includes('Быстрая настройка')) {
-                    answer.innerHTML = `${t.howToSetupAnswer || text} <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="text-green-400 hover:underline">${t.joinDiscordBtn || 'Join Discord'}</a> for step-by-step guide.`;
+                    answer.innerHTML = `${t.howToSetupAnswer || text} <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="text-purple-400 hover:underline">${t.joinDiscordBtn || 'Join Discord'}</a> for step-by-step guide.`;
                 } else if (text.includes('Yes! Completely free') || text.includes('Ja! Vollständig kostenlos') || text.includes('¡Sí! Completamente gratis') || text.includes('Oui! Complètement gratuit') || text.includes('Tak! Całkowicie darmowy') || text.includes('Sim! Completamente grátis') || text.includes('Да! Полностью бесплатно')) {
-                    answer.innerHTML = `${t.isBotFreeAnswer || text} <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="text-green-400 hover:underline">${t.joinDiscordBtn || 'Learn more on Discord'}</a>.`;
+                    answer.innerHTML = `${t.isBotFreeAnswer || text} <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="text-purple-400 hover:underline">${t.joinDiscordBtn || 'Learn more on Discord'}</a>.`;
                 } else if (text.includes('All major platforms!') || text.includes('Alle großen Plattformen') || text.includes('¡Todas las plataformas principales') || text.includes('Toutes les plateformes majeures') || text.includes('Wszystkie główne platformy') || text.includes('Todas as principais plataformas') || text.includes('Все основные платформы')) {
-                    answer.innerHTML = `${t.whatPlatformsAnswer || text} <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="text-green-400 hover:underline">${t.joinDiscordBtn || 'See full list on Discord'}</a>.`;
+                    answer.innerHTML = `${t.whatPlatformsAnswer || text} <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="text-purple-400 hover:underline">${t.joinDiscordBtn || 'See full list on Discord'}</a>.`;
                 } else if (text.includes('Join our') || text.includes('Tritt unserem') || text.includes('Únete a nuestro') || text.includes('Rejoignez notre') || text.includes('Dołącz do naszego') || text.includes('Junte-se ao nosso') || text.includes('Присоединяйтесь к нашему')) {
-                    answer.innerHTML = `${t.needMoreHelpAnswer || text} <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="text-green-400 hover:underline font-bold">${t.support || 'Support Server'}</a> for detailed help, guides, and community support!`;
+                    answer.innerHTML = `${t.needMoreHelpAnswer || text} <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="text-purple-400 hover:underline font-bold">${t.support || 'Support Server'}</a> for detailed help, guides, and community support!`;
                 }
             });
             
@@ -1037,7 +1204,7 @@
             document.querySelectorAll('[data-translate="andMuchMoreDesc"]').forEach(el => {
                 const link = el.querySelector('a');
                 if (link) {
-                    el.innerHTML = `${t.andMuchMoreDesc || el.textContent} <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="text-green-400 hover:underline">${t.joinDiscordBtn || 'Join Discord'}</a> to discover all features!`;
+                    el.innerHTML = `${t.andMuchMoreDesc || el.textContent} <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="text-purple-400 hover:underline">${t.joinDiscordBtn || 'Join Discord'}</a> to discover all features!`;
                 } else {
                     el.textContent = t.andMuchMoreDesc || el.textContent;
                 }
@@ -1144,6 +1311,11 @@
     <!-- Particles Background -->
     <div id="particles" class="fixed inset-0 pointer-events-none z-0"></div>
     
+    <!-- Animated Blob Shapes -->
+    <div class="shape-blob" style="width: 500px; height: 500px; top: 10%; left: -10%; animation-delay: 0s;"></div>
+    <div class="shape-blob" style="width: 400px; height: 400px; bottom: 20%; right: -5%; animation-delay: 5s;"></div>
+    <div class="shape-blob" style="width: 600px; height: 600px; top: 50%; left: 50%; animation-delay: 10s;"></div>
+    
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 glass">
         <div class="container mx-auto px-6 py-4">
@@ -1153,27 +1325,27 @@
                     <span class="text-xl font-bold gradient-text">LootGoblin</span>
                 </div>
                 <div class="hidden md:flex items-center space-x-6">
-                    <a href="#features" class="hover:text-green-400 transition">Features</a>
-                    <a href="#screenshots" class="hover:text-green-400 transition">Screenshots</a>
-                    <a href="#premium" class="hover:text-green-400 transition">Premium</a>
-                    <a href="#faq" class="hover:text-green-400 transition">FAQ</a>
-                    <a href="/changelog.html" class="hover:text-green-400 transition">Changelog</a>
-                    <a href="/comparison.html" class="hover:text-green-400 transition">Free vs Premium</a>
-                    <a href="/status.html" class="hover:text-green-400 transition">Status</a>
-                    <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="hover:text-green-400 transition">Support</a>
+                    <a href="#features" class="hover:text-purple-400 transition">Features</a>
+                    <a href="#screenshots" class="hover:text-purple-400 transition">Screenshots</a>
+                    <a href="#premium" class="hover:text-purple-400 transition">Premium</a>
+                    <a href="#faq" class="hover:text-purple-400 transition">FAQ</a>
+                    <a href="/changelog.html" class="hover:text-purple-400 transition">Changelog</a>
+                    <a href="/comparison.html" class="hover:text-purple-400 transition">Free vs Premium</a>
+                    <a href="/status.html" class="hover:text-purple-400 transition">Status</a>
+                    <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="hover:text-purple-400 transition">Support</a>
                     <div class="flex items-center space-x-3">
-                        <a href="https://x.com/lootgoblinbot" target="_blank" class="hover:text-green-400 transition" title="X (Twitter)">
+                        <a href="https://x.com/lootgoblinbot" target="_blank" class="hover:text-purple-400 transition" title="X (Twitter)">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                         </a>
-                        <a href="https://www.instagram.com/lootgoblinbot/" target="_blank" class="hover:text-green-400 transition" title="Instagram">
+                        <a href="https://www.instagram.com/lootgoblinbot/" target="_blank" class="hover:text-purple-400 transition" title="Instagram">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                         </a>
-                        <a href="https://www.tiktok.com/@lootgoblinbot" target="_blank" class="hover:text-green-400 transition" title="TikTok">
+                        <a href="https://www.tiktok.com/@lootgoblinbot" target="_blank" class="hover:text-purple-400 transition" title="TikTok">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
                         </a>
                     </div>
                     <a href="https://discord.com/oauth2/authorize?client_id=1443178183565508680&permissions=536879104&scope=bot%20applications.commands" 
-                       class="bg-gradient-to-r from-green-400 to-cyan-400 px-6 py-2 rounded-full font-semibold hover:scale-105 transition transform glow">
+                       class="bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-2 rounded-full font-semibold hover:scale-105 transition transform glow">
                         Add to Discord
                     </a>
                 </div>
@@ -1185,7 +1357,7 @@
     <section class="relative min-h-screen flex items-center justify-center pt-32 md:pt-40 px-6">
         <div class="container mx-auto text-center z-10">
             <div class="animate-float mb-8 mt-8">
-                <img src="https://i.epvpimg.com/RAFObab.jpg" alt="LootGoblin" class="w-32 h-32 mx-auto rounded-full mb-6 glow border-4 border-green-400/50">
+                <img src="https://i.epvpimg.com/RAFObab.jpg" alt="LootGoblin" class="w-32 h-32 mx-auto rounded-full mb-6 glow border-4 border-purple-400/50">
             </div>
             
             <h1 class="text-6xl md:text-8xl font-black mb-6">
@@ -1194,7 +1366,7 @@
             
             <!-- Banner Image -->
             <div class="mb-12 max-w-4xl mx-auto">
-                <img src="https://i.epvpimg.com/VTIeaab.jpg" alt="LootGoblin Banner" class="w-full rounded-2xl shadow-2xl border-2 border-green-400/30">
+                <img src="https://i.epvpimg.com/VTIeaab.jpg" alt="LootGoblin Banner" class="w-full rounded-2xl shadow-2xl border-2 border-purple-400/30">
             </div>
             
             <p class="text-2xl md:text-3xl text-gray-300 mb-4">
@@ -1205,7 +1377,7 @@
                 Track free games & deals from Steam, Epic Games, GOG, PlayStation, Xbox, Nintendo Switch and more. 
                 Get notified instantly when your wishlist games go free!
             </p>
-            <p class="text-green-400 mb-12 text-lg">
+            <p class="text-purple-400 mb-12 text-lg">
                 💬 <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="hover:underline font-semibold">Join our Discord</a> for updates, changelogs, and community!
             </p>
             
@@ -1215,7 +1387,7 @@
                     🚀 Add to Discord
                 </a>
                 <a href="https://buy.stripe.com/5kQfZj4Jw7FM708bAGeQM01" 
-                   class="glass px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition transform border-2 border-green-400">
+                   class="glass px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition transform border-2 border-purple-400 neon-border">
                     💎 Get Premium
                 </a>
             </div>
@@ -1245,7 +1417,7 @@
                 <span class="gradient-text">Powerful Features</span>
             </h2>
             <p class="text-center text-gray-400 mb-4 text-xl" data-translate="featuresDesc">Everything you need to never miss a free game</p>
-            <p class="text-center text-green-400 mb-16 text-lg" data-translate="featuresJoinText">💡 <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="hover:underline">Join our Discord</a> to learn more about all features!</p>
+            <p class="text-center text-purple-400 mb-16 text-lg" data-translate="featuresJoinText">💡 <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="hover:underline">Join our Discord</a> to learn more about all features!</p>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Feature 1 -->
@@ -1301,7 +1473,7 @@
                 <div class="glass rounded-2xl p-8 hover:scale-105 transition transform">
                     <div class="text-5xl mb-4">⚡</div>
                     <h3 class="text-2xl font-bold mb-3" data-translate="andMuchMore">And Much More!</h3>
-                    <p class="text-gray-400" data-translate="andMuchMoreDesc"><a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="text-green-400 hover:underline">Join Discord</a> to discover all features!</p>
+                    <p class="text-gray-400" data-translate="andMuchMoreDesc"><a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="text-purple-400 hover:underline">Join Discord</a> to discover all features!</p>
                 </div>
             </div>
             
@@ -1524,32 +1696,32 @@
                 </div>
                 
                 <div class="grid md:grid-cols-2 gap-6 mb-8">
-                    <div class="bg-gradient-to-br from-green-400/20 to-cyan-400/20 rounded-xl p-6 border border-green-400/30">
+                    <div class="bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl p-6 border border-purple-400/30 card-3d">
                         <div class="text-2xl font-bold mb-2" data-translate="customBranding">✏️ Custom Branding</div>
                         <p class="text-gray-300" data-translate="customBrandingDesc">Change bot name & avatar to match your server</p>
                     </div>
                     
-                    <div class="bg-gradient-to-br from-green-400/20 to-cyan-400/20 rounded-xl p-6 border border-green-400/30">
+                    <div class="bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl p-6 border border-purple-400/30 card-3d">
                         <div class="text-2xl font-bold mb-2" data-translate="autoThreads">💬 Auto-Threads</div>
                         <p class="text-gray-300" data-translate="autoThreadsDesc">Automatic thread for every deal</p>
                     </div>
                     
-                    <div class="bg-gradient-to-br from-green-400/20 to-cyan-400/20 rounded-xl p-6 border border-green-400/30">
+                    <div class="bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl p-6 border border-purple-400/30 card-3d">
                         <div class="text-2xl font-bold mb-2" data-translate="deepSearch">🔍 Deep-Search</div>
                         <p class="text-gray-300" data-translate="deepSearchDesc">Only deals with >50% discount</p>
                     </div>
                     
-                    <div class="bg-gradient-to-br from-green-400/20 to-cyan-400/20 rounded-xl p-6 border border-green-400/30">
+                    <div class="bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl p-6 border border-purple-400/30 card-3d">
                         <div class="text-2xl font-bold mb-2" data-translate="dlcLoot">📦 DLC & Loot</div>
                         <p class="text-gray-300" data-translate="dlcLootDesc">Free DLCs & in-game items</p>
                     </div>
                     
-                    <div class="bg-gradient-to-br from-green-400/20 to-cyan-400/20 rounded-xl p-6 border border-green-400/30">
+                    <div class="bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl p-6 border border-purple-400/30 card-3d">
                         <div class="text-2xl font-bold mb-2" data-translate="extendedWishlist">🎁 Extended Wishlist</div>
                         <p class="text-gray-300" data-translate="extendedWishlistDesc">Track up to 50 games (vs 10)</p>
                     </div>
                     
-                    <div class="bg-gradient-to-br from-green-400/20 to-cyan-400/20 rounded-xl p-6 border border-green-400/30">
+                    <div class="bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl p-6 border border-purple-400/30 card-3d">
                         <div class="text-2xl font-bold mb-2" data-translate="prioritySupport">💬 Priority Support</div>
                         <p class="text-gray-300" data-translate="prioritySupportDesc">Faster response & dev access</p>
                     </div>
@@ -1589,7 +1761,7 @@
                             🚀 Join Discord Server
                         </a>
                         <a href="https://discord.com/oauth2/authorize?client_id=1443178183565508680&permissions=536879104&scope=bot%20applications.commands" 
-                           class="glass px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition transform border-2 border-green-400" data-translate="addBotBtn">
+                           class="glass px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition transform border-2 border-purple-400 neon-border" data-translate="addBotBtn">
                             ➕ Add Bot to Server
                         </a>
                     </div>
@@ -1630,13 +1802,13 @@
                 <a href="/terms.html" class="text-gray-400 hover:text-green-400 transition">Terms</a>
                 <a href="/privacy.html" class="text-gray-400 hover:text-green-400 transition">Privacy</a>
                 <a href="/changelog.html" class="text-gray-400 hover:text-green-400 transition">Changelog</a>
-                <a href="/comparison.html" class="text-gray-400 hover:text-green-400 transition">Free vs Premium</a>
-                <a href="/status.html" class="text-gray-400 hover:text-green-400 transition">Status</a>
-                <a href="/impressum.html" class="text-gray-400 hover:text-green-400 transition">Legal Notice</a>
-                <a href="/licenses.html" class="text-gray-400 hover:text-green-400 transition">Licenses</a>
-                <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="text-gray-400 hover:text-green-400 transition">Support Server</a>
+                <a href="/comparison.html" class="text-gray-400 hover:text-purple-400 transition">Free vs Premium</a>
+                <a href="/status.html" class="text-gray-400 hover:text-purple-400 transition">Status</a>
+                <a href="/impressum.html" class="text-gray-400 hover:text-purple-400 transition">Legal Notice</a>
+                <a href="/licenses.html" class="text-gray-400 hover:text-purple-400 transition">Licenses</a>
+                <a href="https://discord.gg/fDGWAEQdBY" target="_blank" class="text-gray-400 hover:text-purple-400 transition">Support Server</a>
                 <a href="https://discord.com/oauth2/authorize?client_id=1443178183565508680&permissions=536879104&scope=bot%20applications.commands" 
-                   class="text-gray-400 hover:text-green-400 transition">Invite Bot</a>
+                   class="text-gray-400 hover:text-purple-400 transition">Invite Bot</a>
             </div>
             <p class="text-gray-500 text-sm text-center">© 2025 LootGoblin. All rights reserved.</p>
         </div>
